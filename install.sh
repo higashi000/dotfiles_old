@@ -31,3 +31,4 @@ case $_needNeovimSettings in
 esac
 
 `mv nvim ~/.config/`
+echo "source ~/.fishrc" >> ~/.config/fish/config.fish
