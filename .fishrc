@@ -1,0 +1,30 @@
+#PATH---{{{
+set -x PATH $HOME/.dub/packages/.bin/dls-latest $PATH
+#---}}}
+# system settings---{{{
+  source ~/.switch_proxy
+#}}}
+#vim mode settings---{{{
+function fish_user_key_bindings
+  for mode in insert default visual
+    fish_default_key_bindings -M $mode
+  end
+  fish_vi_key_bindings --no-erase
+end
+#---}}}
+# alias---{{{
+alias rldc="ldc2 --run"
+alias proxy-settings="sudo nvim /etc/environment"
+alias bd="cd .."
+alias dnvim="cd ~/.config/nvim"
+alias setvim="nvim ~/.config/nvim/init.vim"
+alias dtoml="cd ~/.config/nvim/toml"
+alias dtemplate="cd ~/.config/nvim/template"
+alias ivm="/usr/bin/nvim"
+alias vim="/usr/bin/nvim"
+alias vi="/usr/bin/nvim"
+alias sudo="sudo -E"
+alias reshell "exec $SHELL"
+alias rdmd="dmd -r"
+source ~/mount
+# }}}
