@@ -1,0 +1,119 @@
+# Shougo_plugins---{{{
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_path = '.*'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+depends = 'neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+depends = ['neosnippet-snippets']
+on_i = 1
+on_ft = ['snippet']
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+#---}}}
+
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+depends = ['deoplete.nvim']
+build = 'bash install.sh'
+hook_add = '''
+set hidden
+let g:LanguageClient_serverCommands = {
+      \ 'c': ['clangd'],
+      \ 'cpp': ['clangd'],
+      \'d': ['dls'],
+      \ }
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_settingsPath = expand('$HOME/.config/nvim/toml/LanguageClientSetting.json')
+let g:LanguageClient_hasSnippetSupport = 0
+
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+nnoremap F :call LanguageClient#textDocument_formatting()<CR>
+'''
+hook_source = '''
+set completefunc=LanguageClient#complete
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_i = 1
+
+[[plugins]]
+repo = 'simeji/winresizer'
+hook_add = '''
+let g:winresizer_start_key = '<C-T>'
+'''
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'mattn/sonictemplate-vim'
+# on_i = 1
+#sonictemplate---{{{
+hook_add = '''
+let g:sonictemplate_vim_template_dir = [
+    \'~/.config/nvim/template'
+    \]
+'''
+
+#---}}}
+
+[[plugins]]
+repo = 'vim-scripts/fcitx.vim'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+# hook_add {{{
+hook_add = '''
+let g:NERDTreeDirArrow = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowExpandable = '→'
+let g:NERDTreeDirArrowCollapsible = '↓'
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+'''
+#}}}
+[[plugins]]
+repo = 'itchyny/lightline.vim'

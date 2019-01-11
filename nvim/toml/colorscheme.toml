@@ -1,0 +1,12 @@
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+# nvim_colorscheme---{{{
+hook_add = '''
+colorscheme hybrid
+set background=dark
+'''
+#}}}
