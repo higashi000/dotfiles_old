@@ -54,6 +54,7 @@ let g:LanguageClient_serverCommands = {
       \ 'c': ['clangd'],
       \ 'cpp': ['clangd'],
       \'d': ['dls'],
+      \'ruby': ['solargraph', 'stdio'],
       \ }
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath = expand('$HOME/.config/nvim/toml/LanguageClientSetting.json')
