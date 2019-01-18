@@ -71,8 +71,7 @@ set completefunc=LanguageClient#complete
 repo = 'osyo-manga/vim-precious'
 
 [[plugins]]
-repo = 'cohama/lexima.vim'
-on_i = 1
+repo = 'higashi000/Kakkonan'
 
 [[plugins]]
 repo = 'simeji/winresizer'
