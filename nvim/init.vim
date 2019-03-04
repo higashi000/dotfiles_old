@@ -40,11 +40,3 @@ set clipboard+=unnamedplus
 highlight Normal ctermbg=none
 noremap <ESC><ESC> :noh<CR>
 inoremap s;; std::
-
-" lightline ---{{{
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'] ]
-      \ }
-      \ }
-" }}}
