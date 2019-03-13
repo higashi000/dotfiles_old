@@ -1,6 +1,6 @@
 #!/bin/sh
 
-`mv .fishrc ~/`
+mv .fishrc ~/
 
 echo -n "Are you need proxy settings?(y/n): "
 read _needProxySettings
@@ -19,16 +19,15 @@ case $_needProxySettings in
     break;;
 esac
 
-echo -n "Are you need Neovim and dein settings?(y/n): "
-read _needNeovimSettings
-case $_needNeovimSettings in
+echo -n "Are you install dein.vim?(y/n): "
+read _needDeinInstall
+case $_needDeinInstall in
   [y] | '' )
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-    sh ./installer.sh ~/.cache/dein
+    curl -fsSL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s "$HOME/.cache/dein"
     break;;
-  [n])
+  [n] | * )
     break;;
 esac
 
-`mv nvim ~/.config/`
-echo "source ~/.fishrc" >> ~/.config/fish/config.fish
+
+cp -rf ./nvim ~/.config/
