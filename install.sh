@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mv .fishrc ~/
+cp -f .fishrc ~/
 echo "source ~/.fishrc" >> ~/.config/fish/config.fish
 
 echo -n "Are you need proxy settings?(y/n): "
