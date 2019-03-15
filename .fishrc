@@ -26,5 +26,4 @@ alias vi="/usr/bin/nvim"
 alias sudo="sudo -E"
 alias reshell "exec $SHELL"
 alias rdmd="dmd -r"
-source ~/mount
 # }}}
