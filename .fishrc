@@ -14,7 +14,6 @@ function fish_user_key_bindings
 end
 #---}}}
 # alias---{{{
-alias rldc="ldc2 --run"
 alias proxy-settings="sudo nvim /etc/environment"
 alias bd="cd .."
 alias dnvim="cd ~/.config/nvim"
@@ -26,5 +25,4 @@ alias vim="/usr/bin/nvim"
 alias vi="/usr/bin/nvim"
 alias sudo="sudo -E"
 alias reshell "exec $SHELL"
-alias rdmd="dmd -r"
 # }}}
