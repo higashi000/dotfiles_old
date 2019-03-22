@@ -1,5 +1,6 @@
 #PATH---{{{
 set -x PATH $HOME/.dub/packages/.bin/dls-latest $PATH
+set -x PATH $HOME/.gem/ruby/2.6.0/bin $PATH
 #---}}}
 # system settings---{{{
   source ~/.switch_proxy
