@@ -22,6 +22,7 @@ syntax enable
 set number
 set title
 set shiftwidth=2
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
 set expandtab
 set cindent
 set smarttab
