@@ -85,19 +85,6 @@ class Scanner
     str ~= s.to!(char[]).strip.split;
   }
 }
-
-//Digit count---{{{
-int DigitNum(int num) {
-  int digit = 0;
-
-  while (num != 0) {
-    num /= 10;
-    digit++;
-  }
-
-  return digit;
-}
-//}}}
 //}}}
 
 void main() {
