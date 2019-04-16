@@ -30,5 +30,21 @@ case $_needDeinInstall in
     break;;
 esac
 
-
 cp -rf ./nvim ~/.config/
+
+echo -n "Are you need git settings?(y/n): "
+read _needGitSettings
+case $_needGitSettings in
+  [y] | '' )
+    echo -n "Please input your account email: "
+    read _yourAccountEmail
+    echo -n "Please input your account name: "
+    read _yourAccountName
+
+    git config --global user.name "$_yourAccountName"
+    git config --global user.email "$_yourAccountEmail"
+    break;;
+
+  [n] )
+    break;;
+esac
