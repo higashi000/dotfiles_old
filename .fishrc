@@ -26,3 +26,9 @@ alias vi="/usr/bin/nvim"
 alias sudo="sudo -E"
 alias reshell "exec $SHELL"
 # }}}
+
+function dopush
+  set _nowBranch (git branch | grep '*' | awk '{print $2}')
+
+  git push origin $_nowBranch
+end
