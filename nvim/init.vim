@@ -41,3 +41,5 @@ set clipboard+=unnamedplus
 highlight Normal ctermbg=none
 noremap <ESC><ESC> :noh<CR>
 inoremap s;; std::
+noremap ; :
+tnoremap <C-[> <C-\><C-n>
