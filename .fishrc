@@ -27,6 +27,23 @@ alias sudo="sudo -E"
 alias reshell "exec $SHELL"
 # }}}
 
+function mkcmmt
+  switch $argv[1]
+  case "-a"
+  git commit -m "[add] $argv[2]"
+  case "-c"
+  git commit -m "[change] $argv[2]"
+  case "-r"
+  git commit -m "[remove] $argv[2]"
+  case "-f"
+  git commit -m "[fix] $argv[2]"
+  case "-hf"
+  git commit -m "[clean] $argv[2]"
+  case "-u"
+  git commit -m "[update] $argv[2]"
+  end
+end
+
 function dopush
   set _nowBranch (git branch | grep '*' | awk '{print $2}')
 
