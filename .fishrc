@@ -26,7 +26,7 @@ alias vi="/usr/bin/nvim"
 alias sudo="sudo -E"
 alias reshell "exec $SHELL"
 # }}}
-
+# mkcmmt {{{
 function mkcmmt
   switch $argv[1]
   case "-a"
@@ -43,9 +43,11 @@ function mkcmmt
   git commit -m "[update] $argv[2]"
   end
 end
-
+# }}}
+# dopush {{{
 function dopush
   set _nowBranch (git branch | grep '*' | awk '{print $2}')
 
   git push origin $_nowBranch
 end
+# }}}
