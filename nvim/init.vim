@@ -1,3 +1,6 @@
+set t_u7=
+set t_RV=
+
 "dein---{{{
 if &compatible
   set nocompatible
@@ -19,7 +22,6 @@ endif
 "}}}
 
 syntax enable
-set number
 set title
 set shiftwidth=2
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
@@ -43,3 +45,9 @@ noremap <ESC><ESC> :noh<CR>
 inoremap s;; std::
 noremap ; :
 tnoremap <C-[> <C-\><C-n>
+
+command! Term call OpenTerminal()
+function! OpenTerminal()
+  :10sp
+  :terminal
+endfunc
