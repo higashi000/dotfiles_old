@@ -99,9 +99,6 @@ let g:sonictemplate_vim_template_dir = [
 #---}}}
 
 [[plugins]]
-repo = 'vim-scripts/fcitx.vim'
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
 
 [[plugins]]
