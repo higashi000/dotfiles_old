@@ -120,6 +120,11 @@ repo = 'vim-airline/vim-airline'
 hook_add = '''
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
+let g:airline#extensions#tabline#enabled = 1
+
+noremap <silent><Space>x :bdelete<CR>
+noremap <silent><Space>h :bprevious<CR>
+noremap <silent><Space>l :bnext<CR>
 '''
 # airline settings ---}}}
 
