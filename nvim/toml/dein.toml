@@ -130,3 +130,42 @@ noremap <silent><Space>l :bnext<CR>
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'LeafCage/foldCC.vim'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+# vim-gitgutter settings --- {{{
+hook_add = '''
+nnoremap [gitgutter] <Nop>
+nmap <C-h> [gitgutter]
+nmap [gitgutter]j <Plug>GitGutterNextHunk
+nmap [gitgutter]k <Plug>GitGutterPrevHunk
+nmap [gitgutter]u <Plug>GitGutterUndoHunk
+'''
+# }}}
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+# vim-fugitive settings ---{{{
+hook_add = '''
+command Gst :Gstatus
+command Gdf :Gdiff
+command Gbl :gblame
+'''
+# }}}
+
+[[plugins]]
+repo = 'osyo-manga/vim-anzu'
+# anzu settings --- {{{
+hook_add = '''
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+'''
+#}}}
