@@ -30,7 +30,17 @@ case $_needDeinInstall in
     break;;
 esac
 
-cp -rf ./nvim ~/.config/
+echo -n "Do you use vim or Neovim?(nvim/vim): "
+read _whichVimNvim
+case $_whichVimNvim in
+  [nvim] | *)
+    cp -rf ./nvim ~/.config/
+    break;;
+  [vim] | '')
+    cp ./vim/.vimrc ~/
+    cp -r .vim/.toml ~/
+    break;;
+esac
 
 echo -n "Are you need git settings?(y/n): "
 read _needGitSettings
