@@ -1,6 +1,5 @@
 #PATH---{{{
 set -x PATH $HOME/.dub/packages/.bin/dls-latest $PATH
-set -x PATH $HOME/.gem/ruby/2.6.0/bin $PATH
 #---}}}
 # system settings---{{{
   source ~/.switch_proxy
@@ -20,9 +19,9 @@ alias dnvim="cd ~/.config/nvim"
 alias setvim="nvim ~/.config/nvim/init.vim"
 alias dtoml="cd ~/.config/nvim/toml"
 alias dtemplate="cd ~/.config/nvim/template"
-alias ivm="/usr/bin/nvim"
-alias vim="/usr/bin/nvim"
-alias vi="/usr/bin/nvim"
+alias ivm="/usr/local/bin/vim"
+alias vim="/usr/local/bin/vim"
+alias vi="/usr/local/bin/vim"
 alias sudo="sudo -E"
 alias reshell "exec $SHELL"
 # }}}
