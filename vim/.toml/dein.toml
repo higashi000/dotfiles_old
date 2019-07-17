@@ -63,7 +63,7 @@ let g:LanguageClient_serverCommands = {
       \ }
 let g:LanguageClient_useVirtualText = 0
 let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_settingsPath = expand('$HOME/.config/nvim/toml/LanguageClientSetting.json')
+let g:LanguageClient_settingsPath = expand('$HOME/.toml/LanguageClientSetting.json')
 let g:LanguageClient_hasSnippetSupport = 0
 
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
