@@ -1,0 +1,18 @@
+{
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+        "filetypes": [
+          "c",
+        "cpp"
+        ]
+    },
+      "dls": {
+        "command": "dls",
+        "filetypes": [
+          "d"
+        ],
+        "rootPatterns": ["dub.json", "dub.sdl"]
+      }
+  }
+}
