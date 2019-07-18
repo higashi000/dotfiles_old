@@ -28,10 +28,36 @@ on_i = 1
 on_ft = ['snippet']
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = 'neoclide/coc.nvim'
+merge = 0
+rev = 'release'
+# hook_add {{{
 hook_add = '''
-let g:deoplete#enable_at_startup = 1
+set updatetime=100
+set signcolumn=yes
+function! s:show_docmentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+autocmd CursorHold * silent call CocActionAsync('highlight')
+nmap <leader> rn <Plug>(coc-rename)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" "nnoremap <silent> K :call CocAction('doHover')<CR>
+nnoremap <silent> K :call <SID>show_docmentation()<CR>
+nnoremap <silent> F :call CocAction('format')<CR>
 '''
+# }}}
+
+[[plugins]]
+repo = 'neoclide/coc-neco'
 
 [[plugins]]
 repo = 'roxma/nvim-yarp'
@@ -44,35 +70,6 @@ on_i = 1
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-depends = ['deoplete.nvim']
-build = 'bash install.sh'
-# LanguageClient-neovim settings --- {{{
-hook_add = '''
-set hidden
-let g:LanguageClient_serverCommands = {
-      \ 'c': ['clangd'],
-      \ 'cpp': ['clangd'],
-      \'d': ['dls'],
-      \'ruby': ['solargraph', 'stdio'],
-      \'python': ['pyls'],
-      \'go': ['gopls'],
-      \ }
-let g:LanguageClient_useVirtualText = 0
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_settingsPath = expand('$HOME/.toml/LanguageClientSetting.json')
-let g:LanguageClient_hasSnippetSupport = 0
-
-nnoremap K :call LanguageClient#textDocument_hover()<CR>
-nnoremap F :call LanguageClient#textDocument_formatting()<CR>
-'''
-hook_source = '''
-set completefunc=LanguageClient#complete
-'''
-# }}}
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
@@ -184,3 +181,13 @@ let g:vim_json_syntax_conceal = 0
 
 [[plugins]]
 repo = 'skanehira/translate.vim'
+
+[[plugins]]
+repo = 'higashi000/sarahck.vim'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+'''
