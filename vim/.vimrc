@@ -43,3 +43,4 @@ noremap <ESC><ESC> :noh<CR>
 inoremap s;; std::
 noremap ; :
 tnoremap <C-[> <C-\><C-n>
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
