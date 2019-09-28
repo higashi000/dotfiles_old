@@ -1,18 +1,27 @@
 {
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-        "filetypes": [
+  "suggest.noselect":false,
+  "suggest.preferCompleteThanJumpPlaceholder":true,
+  "languageserver" : {
+    "dls" : {
+      "command" : "dls",
+      "filetypes" : [
+        "d"
+      ],
+      "rootPatterns" : ["dub.json", "dub.sdl"]
+    },
+    "golang" : {
+      "command" : "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes" : [
+        "go"
+      ]
+    },
+    "clangd" : {
+      "command" : "clangd",
+        "filetypes" : [
           "c",
         "cpp"
         ]
-    },
-      "dls": {
-        "command": "dls",
-        "filetypes": [
-          "d"
-        ],
-        "rootPatterns": ["dub.json", "dub.sdl"]
-      }
+    }
   }
 }
