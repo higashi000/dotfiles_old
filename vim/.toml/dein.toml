@@ -75,9 +75,6 @@ repo = 'Shougo/context_filetype.vim'
 repo = 'osyo-manga/vim-precious'
 
 [[plugins]]
-repo = 'higashi000/Kakkonan'
-
-[[plugins]]
 repo = 'simeji/winresizer'
 hook_add = '''
 let g:winresizer_start_key = '<C-T>'
@@ -191,3 +188,9 @@ hook_add = '''
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 '''
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
