@@ -2,77 +2,10 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
+repo = 'vim-lsp'
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-on_path = '.*'
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-on_path = '.*'
-on_i = 1
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
-depends = 'neomru.vim'
-
-[[plugins]]
-repo = 'Shougo/neosnippet'
-depends = ['neosnippet-snippets']
-on_i = 1
-on_ft = ['snippet']
-
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-merge = 0
-rev = 'release'
-# hook_add {{{
-hook_add = '''
-set updatetime=100
-set signcolumn=yes
-function! s:show_docmentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-autocmd CursorHold * silent call CocActionAsync('highlight')
-nmap <leader> rn <Plug>(coc-rename)
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" "nnoremap <silent> K :call CocAction('doHover')<CR>
-nnoremap <silent> K :call <SID>show_docmentation()<CR>
-nnoremap <silent> F :call CocAction('format')<CR>
-'''
-# }}}
-
-[[plugins]]
-repo = 'neoclide/coc-neco'
-
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-on_i = 1
-
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
+repo = 'async.vim'
 
 [[plugins]]
 repo = 'simeji/winresizer'
@@ -87,32 +20,7 @@ repo = 'Yggdroot/indentLine'
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
-repo = 'mattn/sonictemplate-vim'
-# on_i = 1
-#sonictemplate---{{{
-hook_add = '''
-  let g:sonictemplate_vim_template_dir = [
-  \'~/.config/nvim/template'
-    \]
-'''
-
-#---}}}
-
-[[plugins]]
 repo = 'tomtom/tcomment_vim'
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-# hook_add {{{
-  hook_add = '''
-    let g:NERDTreeDirArrow = 1
-    let g:NERDTreeDirArrowExpandable = '▸'
-    let g:NERDTreeDirArrowCollapsible = '▾'
-    let g:NERDTreeDirArrowExpandable = '→'
-    let g:NERDTreeDirArrowCollapsible = '↓'
-    nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-    '''
-#}}}
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
@@ -135,31 +43,6 @@ repo = 'vim-airline/vim-airline-themes'
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
-repo = 'LeafCage/foldCC.vim'
-
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-# vim-gitgutter settings --- {{{
-hook_add = '''
-  nnoremap [gitgutter] <Nop>
-  nmap <C-h> [gitgutter]
-  nmap [gitgutter]j <Plug>GitGutterNextHunk
-  nmap [gitgutter]k <Plug>GitGutterPrevHunk
-  nmap [gitgutter]u <Plug>GitGutterUndoHunk
-'''
-# }}}
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-# vim-fugitive settings ---{{{
-hook_add = '''
-  command Gst :Gstatus
-  command Gdf :Gdiff
-  command Gbl :gblame
-'''
-# }}}
-
-[[plugins]]
 repo = 'osyo-manga/vim-anzu'
 # anzu settings --- {{{
 hook_add = '''
@@ -180,9 +63,6 @@ let g:vim_json_syntax_conceal = 0
 repo = 'skanehira/translate.vim'
 
 [[plugins]]
-repo = 'higashi000/sarahck.vim'
-
-[[plugins]]
 repo = 'fatih/vim-go'
 hook_add = '''
 let g:go_def_mode='gopls'
@@ -194,3 +74,6 @@ repo = 'cohama/lexima.vim'
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'liuchengxu/vim-clap'

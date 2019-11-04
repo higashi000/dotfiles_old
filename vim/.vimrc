@@ -44,4 +44,42 @@ noremap <ESC><ESC> :noh<CR>
 inoremap s;; std::
 noremap ; :
 tnoremap <C-[> <C-\><C-n>
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nmap <silent> <Leader>d :LspDefinition<CR>
+
+source ~/code/sleahck.vim/plugin/sleahck.vim
+source ~/code/sleahck.vim/autoload/sleahck.vim
+
+" vim-lsp settings {{{
+if executable('gopls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'gopls',
+      \ 'cmd': {server_info->['gopls']},
+      \ 'whitelist': ['go'],
+      \ })
+endif
+
+if executable('ccls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'ccls',
+      \ 'cmd': {server_info->['ccls']},
+      \ 'whitelist': ['c', 'cpp'],
+      \ })
+endif
+
+if executable('pyls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'pyls',
+      \ 'cmd': {server_info->['pyls']},
+      \ 'whitelist': ['python'],
+      \ })
+endif
+
+if executable('dls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'dls',
+      \ 'cmd': {server_info->['dls']},
+      \ 'whitelist': ['d'],
+      \ })
+endif
+" }}}
