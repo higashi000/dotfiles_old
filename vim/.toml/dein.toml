@@ -2,16 +2,19 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'vim-lsp'
+repo = 'prabirshrestha/async.vim'
 
 [[plugins]]
-repo = 'async.vim'
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
 repo = 'simeji/winresizer'
-hook_add = '''
-let g:winresizer_start_key = '<C-T>'
-'''
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
@@ -24,17 +27,6 @@ repo = 'tomtom/tcomment_vim'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
-# airline settings ---{{{
-  hook_add = '''
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'bubblegum'
-    let g:airline#extensions#tabline#enabled = 1
-
-    noremap <silent><Space>x :bdelete<CR>
-    noremap <silent><Space>h :bprevious<CR>
-    noremap <silent><Space>l :bnext<CR>
-    '''
-# airline settings ---}}}
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
@@ -44,30 +36,15 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
-# anzu settings --- {{{
-hook_add = '''
-  nmap n <Plug>(anzu-n-with-echo)
-  nmap N <Plug>(anzu-N-with-echo)
-  nmap * <Plug>(anzu-star)
-  nmap # <Plug>(anzu-sharp)
-'''
-#}}}
 
 [[plugins]]
 repo = 'elzr/vim-json'
-hook_add = '''
-let g:vim_json_syntax_conceal = 0
-'''
 
 [[plugins]]
 repo = 'skanehira/translate.vim'
 
 [[plugins]]
 repo = 'fatih/vim-go'
-hook_add = '''
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-'''
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
@@ -77,3 +54,27 @@ repo = 'mattn/webapi-vim'
 
 [[plugins]]
 repo = 'liuchengxu/vim-clap'
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+
+[[plugins]]
+repo = 'taigacute/gruvbox9'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
