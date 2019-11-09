@@ -14,6 +14,12 @@ repo = 'prabirshrestha/asyncomplete.vim'
 repo = 'prabirshrestha/asyncomplete-lsp.vim'
 
 [[plugins]]
+repo = 'prabirshrestha/asyncomplete-necovim.vim'
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+
+[[plugins]]
 repo = 'simeji/winresizer'
 
 [[plugins]]

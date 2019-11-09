@@ -73,8 +73,8 @@ let g:winresizer_start_key = '<C-T>'
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
-source ~/code/sleahck.vim/plugin/sleahck.vim
-source ~/code/sleahck.vim/autoload/sleahck.vim
+let g:asyncomplete_auto_popup = 1
+
 
 " 行番号の表示切り替え {{{
 augroup lineNumber
@@ -94,9 +94,16 @@ function! SetLineNumber(whichOpt)
 endfunction
 " }}}
 
-" vim-lsp settings {{{
-" lsp command
+" 補完系の設定 {{{
+" vim-lsp command
 nmap <silent> <Leader>d :LspDefinition<CR>
+
+" VimScript
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+    \ 'name': 'necovim',
+    \ 'whitelist': ['vim'],
+    \ 'completor': function('asyncomplete#sources#necovim#completor'),
+    \ }))
 
 " golang
 if executable('gopls')
