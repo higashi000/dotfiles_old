@@ -32,6 +32,7 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 set smarttab
+set cindent
 " if .py file open
 autocmd FileType python set tabstop = 4 softtabstop = 4 shiftwidth = 4
 " }}}
