@@ -24,7 +24,7 @@ set background=dark
 "}}}
 
 " CursorHold timing
-set updatetime=500
+set updatetime=1000
 
 " タブ関係 {{{
 set shiftwidth=2
@@ -34,7 +34,10 @@ set expandtab
 set smarttab
 set cindent
 " if .py file open
-autocmd FileType python set tabstop = 4 softtabstop = 4 shiftwidth = 4
+augroup PythonIndent
+  autocmd!
+  autocmd FileType python set tabstop = 4 softtabstop = 4 shiftwidth = 4
+augroup END
 " }}}
 
 " 検索結果をハイライト
@@ -64,18 +67,23 @@ tnoremap <C-[> <C-\><C-n>
 " <Leader>tでディレクトリツリーの表示
 nmap <silent> <Leader>t :e.<CR>
 
-" vim-json
-let g:vim_json_syntax_conceal = 0
+" 折返し
+noremap j gj
+noremap k gk
 
-" winresizer
-let g:winresizer_start_key = '<C-T>'
 
-" vim-go
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+" 自動保存 --- {{{
+augroup autoSave
+  autocmd!
+  autocmd CursorHold,CursorHoldI * call CheckFileName()
+augroup END
 
-let g:asyncomplete_auto_popup = 1
-
+function! CheckFileName()
+  if expand("%") != ''
+    :w
+  endif
+endfunction
+" }}}
 
 " 行番号の表示切り替え {{{
 augroup lineNumber
@@ -88,16 +96,43 @@ function! SetLineNumber(whichOpt)
   if a:whichOpt
     set relativenumber
     set nonumber
+    highlight LineNr ctermfg=166
   else
     set number
     set norelativenumber
+    highlight LineNr ctermfg=239
   endif
 endfunction
 " }}}
 
+" プラグインアップデート
+command UpdatePlugin call dein#update()
+
+" vim-json
+let g:vim_json_syntax_conceal = 0
+
+" winresizer
+let g:winresizer_start_key = '<C-T>'
+
+" vim-go
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+let g:asyncomplete_auto_popup = 1
+
 " 補完系の設定 {{{
 " vim-lsp command
-nmap <silent> <Leader>d :LspDefinition<CR>
+nnoremap <silent> <Leader>d :LspDefinition<CR>
+nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
+nnoremap <silent> <Leader>h :LspHover<CR>
+nnoremap <silent> <Leader>r :LspRename<CR>
+nnoremap <silent> <Leader>ne :LspNextError<CR>
+nnoremap <silent> <Leader>pe :LspPreviousError<CR>
+nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+
+" vim-lsp Document Diagnostics
+let g:lsp_signs_error = {'text': '❎'}
+let g:lsp_signs_warning = {'text': '🔼'}
 
 " VimScript
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
@@ -112,6 +147,15 @@ if executable('gopls')
       \ 'name': 'gopls',
       \ 'cmd': {server_info->['gopls']},
       \ 'whitelist': ['go'],
+      \ })
+endif
+
+" dlang
+if executable('dls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'dls',
+      \ 'cmd': {server_info->['dls']},
+      \ 'whitelist': ['d'],
       \ })
 endif
 
@@ -133,13 +177,23 @@ if executable('pyls')
       \ })
 endif
 
-" dlang
-if executable('dls')
+" javascript & typescript
+if executable('typescript-language-server')
   au User lsp_setup call lsp#register_server({
-      \ 'name': 'dls',
-      \ 'cmd': {server_info->['dls']},
-      \ 'whitelist': ['d'],
+      \ 'name': 'javascript support using typescript-language-server',
+      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+      \ 'whitelist': ['javascript', 'javascript.jsx']
       \ })
+endif
+
+" Ruby
+if executable('solargraph')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'initialization_options': {"diagnostics": "true"},
+        \ 'whitelist': ['ruby'],
+        \ })
 endif
 " }}}
 
