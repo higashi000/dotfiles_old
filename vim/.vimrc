@@ -12,6 +12,11 @@ if dein#load_state('/home/higashi/.cache/dein')
   call dein#save_state()
 endif
 
+"vital.vimm
+if dein#tap('vital.vim')
+  let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
+endif
+
 if dein#check_install()
   call dein#install()
 endif
@@ -70,6 +75,10 @@ nmap <silent> <Leader>t :e.<CR>
 " 折返し
 noremap j gj
 noremap k gk
+
+source ~/.slacktoken.vim
+source ~/sarahck.vim/autoload/sarahck.vim
+source ~/sarahck.vim/plugin/sarahck.vim
 
 
 " 自動保存 --- {{{
