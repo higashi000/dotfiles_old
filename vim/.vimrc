@@ -1,3 +1,5 @@
+set fileencoding=utf-8 fileformat=unix
+
 "dein---{{{
 if &compatible
   set nocompatible
@@ -31,7 +33,7 @@ set background=dark
 " CursorHold timing
 set updatetime=1000
 
-" タブ関係 {{{
+" indent setting {{{
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
@@ -41,47 +43,52 @@ set cindent
 " if .py file open
 augroup PythonIndent
   autocmd!
-  autocmd FileType python set tabstop = 4 softtabstop = 4 shiftwidth = 4
+  autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 " }}}
 
-" 検索結果をハイライト
+" highlight in search result
 set hlsearch
-" カーソル行、列をハイライト
+" highlight in cursor line, col
 set cursorline
 set cursorcolumn
-" 折りたたみ有効化
+" folding setting
 set foldmethod=marker
 
+" buffer move
+noremap <silent><Space>x :bdelete<CR>
+noremap <silent><Space>h :bprevious<CR>
+noremap <silent><Space>l :bnext<CR>
+
+" display cursor pos
 set ruler
-" エラーを鳴らさない
+" error bell
 set noerrorbells
-" ステータスラインをいい感じに
+" status line
 set laststatus=2
 
-" <ESC><ESC>でハイライトをやめる
+" highlight cancel
 noremap <silent> <ESC><ESC> :noh<CR>
-" s;;でstd::を入力
+" `s;;` to `std::`
 inoremap s;; std::
-" リーダーキーをスペースに
+" set leaderkey
 let mapleader = "\<Space>"
-" ノーマルモードで;を:に
+" `;` to ':' in normal mode
 noremap ; :
-" ターミナルモードを抜けるときに<C-[>で行けるように
+" escape terminal mode
 tnoremap <C-[> <C-\><C-n>
-" <Leader>tでディレクトリツリーの表示
+" directory tree
 nmap <silent> <Leader>t :e.<CR>
 
-" 折返し
+" turn back
 noremap j gj
 noremap k gk
 
 source ~/.slacktoken.vim
-source ~/sarahck.vim/autoload/sarahck.vim
-source ~/sarahck.vim/plugin/sarahck.vim
 
+set runtimepath+=/home/higashi/sarahck.vim
 
-" 自動保存 --- {{{
+" auto save --- {{{
 augroup autoSave
   autocmd!
   autocmd CursorHold,CursorHoldI * call CheckFileName()
@@ -94,7 +101,7 @@ function! CheckFileName()
 endfunction
 " }}}
 
-" 行番号の表示切り替え {{{
+" line number {{{
 augroup lineNumber
   autocmd!
   autocmd CursorMoved,CursorMovedI * call SetLineNumber(1)
@@ -114,7 +121,7 @@ function! SetLineNumber(whichOpt)
 endfunction
 " }}}
 
-" プラグインアップデート
+" plugin update command
 command UpdatePlugin call dein#update()
 
 " vim-json
@@ -129,7 +136,16 @@ let g:go_info_mode='gopls'
 
 let g:asyncomplete_auto_popup = 1
 
-" 補完系の設定 {{{
+" markdown
+nnoremap <silent> <C-p> :PrevimOpen<CR>
+let g:vim_markdown_folding_disabled=1
+let g:previm_enable_realtime=1
+
+" vim-lsp Document Diagnostics
+let g:lsp_signs_error = {'text': '❎'}
+let g:lsp_signs_warning = {'text': '▲'}
+
+" complement setting {{{
 " vim-lsp command
 nnoremap <silent> <Leader>d :LspDefinition<CR>
 nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
@@ -138,10 +154,6 @@ nnoremap <silent> <Leader>r :LspRename<CR>
 nnoremap <silent> <Leader>ne :LspNextError<CR>
 nnoremap <silent> <Leader>pe :LspPreviousError<CR>
 nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
-
-" vim-lsp Document Diagnostics
-let g:lsp_signs_error = {'text': '❎'}
-let g:lsp_signs_warning = {'text': '🔼'}
 
 " VimScript
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
@@ -153,9 +165,18 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 " golang
 if executable('gopls')
   au User lsp_setup call lsp#register_server({
-      \ 'name': 'gopls',
+      \ 'name': 'golang',
       \ 'cmd': {server_info->['gopls']},
       \ 'whitelist': ['go'],
+      \ 'workspace_config': {'gopls': {
+      \     'staticcheck': v:true,
+      \     'completeUnimported': v:true,
+      \     'caseSensitiveCompletion': v:true,
+      \     'usePlaceholders': v:true,
+      \     'completionDocumentation': v:true,
+      \     'watchFileChanges': v:true,
+      \     'hoverKind': 'SingleLine',
+      \   }},
       \ })
 endif
 
@@ -210,10 +231,6 @@ endif
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#tabline#enabled = 1
-
-noremap <silent><Space>x :bdelete<CR>
-noremap <silent><Space>h :bprevious<CR>
-noremap <silent><Space>l :bnext<CR>
 " }}}
 
 " anzu {{{

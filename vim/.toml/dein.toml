@@ -84,3 +84,18 @@ repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
 repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+
+[[plugins]]
+repo = 'kannokanno/previm'
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
