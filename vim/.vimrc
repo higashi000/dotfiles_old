@@ -77,8 +77,6 @@ let mapleader = "\<Space>"
 noremap ; :
 " escape terminal mode
 tnoremap <C-[> <C-\><C-n>
-" directory tree
-nmap <silent> <Leader>t :e.<CR>
 
 " turn back
 noremap j gj
@@ -91,11 +89,14 @@ set runtimepath+=/home/higashi/sarahck.vim
 " auto save --- {{{
 augroup autoSave
   autocmd!
-  autocmd CursorHold,CursorHoldI * call CheckFileName()
+  autocmd CursorHold,CursorHoldI * call Higashi000AutoSave()
 augroup END
 
-function! CheckFileName()
-  if expand("%") != ''
+" auto save
+function! Higashi000AutoSave()
+  " ファイル名がついていないかNERDTreeを開いていたら自動保存しない
+  let notAutoSavePattern = '\v^NERD_tree_\v\d*|\v^\v$'
+  if match(expand('%'), notAutoSavePattern) != 0
     :w
   endif
 endfunction
@@ -134,7 +135,11 @@ let g:winresizer_start_key = '<C-T>'
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
+" asyncomplete
 let g:asyncomplete_auto_popup = 1
+
+" NERDTree
+noremap <silent> <C-n> :NERDTreeToggle<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>

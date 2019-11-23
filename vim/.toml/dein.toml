@@ -99,3 +99,6 @@ repo = 'tyru/open-browser.vim'
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
