@@ -55,6 +55,10 @@ set cursorcolumn
 " folding setting
 set foldmethod=marker
 
+set backspace=indent,eol,start
+
+set nostartofline
+
 " buffer move
 noremap <silent><Space>x :bdelete<CR>
 noremap <silent><Space>h :bprevious<CR>
@@ -85,22 +89,25 @@ noremap k gk
 source ~/.slacktoken.vim
 
 set runtimepath+=/home/higashi/sarahck.vim
+set runtimepath+=/home/higashi/code/sleahck.vim
+set runtimepath+=/home/higashi/code/no-kyoju-no.vim
+set runtimepath+=/home/higashi/code/opensiv3d.vim
 
-" auto save --- {{{
-augroup autoSave
-  autocmd!
-  autocmd CursorHold,CursorHoldI * call Higashi000AutoSave()
-augroup END
-
-" auto save
-function! Higashi000AutoSave()
-  " ファイル名がついていないかNERDTreeを開いていたら自動保存しない
-  let notAutoSavePattern = '\v^NERD_tree_\v\d*|\v^\v$'
-  if match(expand('%'), notAutoSavePattern) != 0
-    :w
-  endif
-endfunction
-" }}}
+" " auto save --- {{{
+" augroup autoSave
+"   autocmd!
+"   autocmd CursorHold,CursorHoldI * call Higashi000AutoSave()
+" augroup END
+"
+" " auto save
+" function! Higashi000AutoSave()
+"   " ファイル名がついていないかNERDTreeを開いていたら自動保存しない
+"   let notAutoSavePattern = '\v^NERD_tree_\v\d*|\v^\v$'
+"   if match(expand('%'), notAutoSavePattern) != 0 && !&readonly
+"     :w
+"   endif
+" endfunction
+" " }}}
 
 " line number {{{
 augroup lineNumber
@@ -217,7 +224,7 @@ if executable('typescript-language-server')
   au User lsp_setup call lsp#register_server({
       \ 'name': 'javascript support using typescript-language-server',
       \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'whitelist': ['javascript', 'javascript.jsx']
+      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
       \ })
 endif
 
@@ -227,7 +234,7 @@ if executable('solargraph')
         \ 'name': 'solargraph',
         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
         \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['ruby'],
+        \ 'whitelist': ['rb'],
         \ })
 endif
 " }}}
@@ -244,3 +251,13 @@ nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star)
 nmap # <Plug>(anzu-sharp)
 " }}}
+
+" emmet-vim
+let g:user_emmet_leader_key='<C-y>'
+
+" gina.vim
+noremap <Left> :Gina add %
+
+" autofmt
+set formatexpr=autofmt#japanese#formatexpr()
+let autofmt_allow_over_tw=1
