@@ -102,3 +102,24 @@ repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+
+[[plugins]]
+repo = 'vim/killersheep'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'vim-jp/autofmt'
+
+[[plugins]]
+repo = 'andymass/vim-matchup'
+
+[[plugins]]
+repo = 'cocopon/vaffle.vim'
