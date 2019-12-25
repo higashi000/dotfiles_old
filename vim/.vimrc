@@ -60,9 +60,9 @@ set backspace=indent,eol,start
 set nostartofline
 
 " buffer move
-noremap <silent><Space>x :bdelete<CR>
-noremap <silent><Space>h :bprevious<CR>
-noremap <silent><Space>l :bnext<CR>
+noremap <silent><C-x> :bdelete<CR>
+noremap <silent><C-h> :bprevious<CR>
+noremap <silent><C-l> :bnext<CR>
 
 " display cursor pos
 set ruler
@@ -236,6 +236,15 @@ if executable('solargraph')
         \ 'initialization_options': {"diagnostics": "true"},
         \ 'whitelist': ['rb'],
         \ })
+endif
+
+"rust
+if executable('rls')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'rls',
+      \ 'cmd': {server_info->['rls']},
+      \ 'whitelist': ['rust'],
+      \ })
 endif
 " }}}
 
