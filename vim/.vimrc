@@ -1,28 +1,54 @@
 set fileencoding=utf-8 fileformat=unix
 
-"dein---{{{
-if &compatible
-  set nocompatible
-endif
+" vim-plug {{{
+call plug#begin('~/.vim/plugged')
 
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-necovim.vim'
+Plug 'Shougo/neco-vim'
+Plug 'simeji/winresizer'
+Plug 'Yggdroot/indentLine'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'tomtom/tcomment_vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'osyo-manga/vim-anzu'
+Plug 'elzr/vim-json'
+Plug 'skanehira/translate.vim'
+Plug 'fatih/vim-go'
+Plug 'cohama/lexima.vim'
+Plug 'mattn/webapi-vim'
+Plug 'liuchengxu/vim-clap'
+Plug 'lambdalisue/gina.vim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deol.nvim'
+Plug 'w0ng/vim-hybrid'
+Plug 'taigacute/gruvbox9'
+Plug 'cocopon/iceberg.vim'
+Plug 'cespare/vim-toml'
+Plug 'vim-jp/vital.vim'
+Plug 'tpope/vim-markdown'
+Plug 'kannokanno/previm'
+Plug 'tyru/open-browser.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree'
+Plug 'mattn/emmet-vim'
+Plug 'Shougo/deol.nvim'
+Plug 'vim/killersheep'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-jp/autofmt'
+Plug 'andymass/vim-matchup'
+Plug 'cocopon/vaffle.vim'
+Plug 'higashi000/opensiv3d.vim'
+Plug 'lambdalisue/fila.vim'
 
-if dein#load_state('/home/higashi/.cache/dein')
-  call dein#begin('~/.cache/dein')
-  call dein#load_toml('~/.toml/dein.toml', {'lazy' : 0})
-  call dein#end()
-  call dein#save_state()
-endif
-
-"vital.vimm
-if dein#tap('vital.vim')
-  let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
-endif
-
-if dein#check_install()
-  call dein#install()
-endif
-"}}}
+call plug#end()
+" }}}
 
 " colorscheme---{{{
 syntax enable
@@ -47,6 +73,9 @@ augroup PythonIndent
 augroup END
 " }}}
 
+" decision command time
+set timeout timeoutlen=50
+
 " highlight in search result
 set hlsearch
 " highlight in cursor line, col
@@ -56,6 +85,9 @@ set cursorcolumn
 set foldmethod=marker
 
 set backspace=indent,eol,start
+
+"clipboard
+set clipboard^=unnamedplus
 
 set nostartofline
 
@@ -71,6 +103,10 @@ set noerrorbells
 " status line
 set laststatus=2
 
+" sarahck.vim
+set runtimepath+=/home/higashi/vimplugin/sarahck.vim
+source ~/.slacktoken.vim
+
 " highlight cancel
 noremap <silent> <ESC><ESC> :noh<CR>
 " `s;;` to `std::`
@@ -85,13 +121,6 @@ tnoremap <C-[> <C-\><C-n>
 " turn back
 noremap j gj
 noremap k gk
-
-source ~/.slacktoken.vim
-
-set runtimepath+=/home/higashi/sarahck.vim
-set runtimepath+=/home/higashi/code/sleahck.vim
-set runtimepath+=/home/higashi/code/no-kyoju-no.vim
-set runtimepath+=/home/higashi/code/opensiv3d.vim
 
 " " auto save --- {{{
 " augroup autoSave
@@ -146,7 +175,10 @@ let g:go_info_mode='gopls'
 let g:asyncomplete_auto_popup = 1
 
 " NERDTree
-noremap <silent> <C-n> :NERDTreeToggle<CR>
+"noremap <silent> <C-n> :NERDTreeToggle<CR>
+
+" fila.vim
+noremap <silent> <C-n> :Fila<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
@@ -204,11 +236,19 @@ endif
 " C, C++
 if executable('ccls')
   au User lsp_setup call lsp#register_server({
-      \ 'name': 'ccls',
-      \ 'cmd': {server_info->['ccls']},
-      \ 'whitelist': ['c', 'cpp'],
-      \ })
+        \ 'name': 'ccls',
+        \ 'cmd': {server_info->['ccls']},
+        \ 'whitelist': ['c', 'cpp'],
+        \ })
 endif
+"if executable('ccls')
+"  au User lsp_setup call lsp#register_server({
+"      \ 'name': 'ccls',
+"      \ 'cmd': {server_info->['ccls']},
+"      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+"      \ 'whitelist': ['c', 'cpp'],
+"      \ })
+"endif
 
 " python
 if executable('pyls')
@@ -265,7 +305,8 @@ nmap # <Plug>(anzu-sharp)
 let g:user_emmet_leader_key='<C-y>'
 
 " gina.vim
-noremap <Left> :Gina add %
+noremap <Left> :Gina add %<CR>
+noremap <Right> :Gina commit %<CR>
 
 " autofmt
 set formatexpr=autofmt#japanese#formatexpr()
