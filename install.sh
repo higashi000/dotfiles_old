@@ -20,11 +20,11 @@ case $_needProxySettings in
     break;;
 esac
 
-echo -n "Are you install dein.vim?(y/n): "
-read _needDeinInstall
-case $_needDeinInstall in
+echo -n "Are you install vim-plug?(y/n): "
+read _NEEDVIMPLUG
+case $_NEEDVIMPLUG in
   [y] | '' )
-    curl -fsSL https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh | sh -s "$HOME/.cache/dein"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     break;;
   [n] | * )
     break;;
@@ -38,7 +38,6 @@ case $_whichVimNvim in
     break;;
   [vim] | '')
     cp ./vim/.vimrc ~/
-    cp -r .vim/.toml ~/
     break;;
 esac
 
