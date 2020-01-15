@@ -7,7 +7,9 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete-necovim.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'Shougo/neco-vim'
 Plug 'simeji/winresizer'
 Plug 'Yggdroot/indentLine'
@@ -105,14 +107,14 @@ set laststatus=2
 
 " sarahck.vim
 set runtimepath+=/home/higashi/vimplugin/sarahck.vim
-source ~/.slacktoken.vim
+"source ~/.slacktoken.vim
 
 " highlight cancel
 noremap <silent> <ESC><ESC> :noh<CR>
 " `s;;` to `std::`
 inoremap s;; std::
 " set leaderkey
-let mapleader = "\<Space>"
+let mapleader = "\<Alt>"
 " `;` to ':' in normal mode
 noremap ; :
 " escape terminal mode
@@ -175,10 +177,10 @@ let g:go_info_mode='gopls'
 let g:asyncomplete_auto_popup = 1
 
 " NERDTree
-"noremap <silent> <C-n> :NERDTreeToggle<CR>
+noremap <silent> <C-n> :NERDTreeToggle<CR>
 
 " fila.vim
-noremap <silent> <C-n> :Fila<CR>
+"noremap <silent> <C-n> :Fila<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
@@ -206,86 +208,13 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'completor': function('asyncomplete#sources#necovim#completor'),
     \ }))
 
-" golang
-if executable('gopls')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'golang',
-      \ 'cmd': {server_info->['gopls']},
-      \ 'whitelist': ['go'],
-      \ 'workspace_config': {'gopls': {
-      \     'staticcheck': v:true,
-      \     'completeUnimported': v:true,
-      \     'caseSensitiveCompletion': v:true,
-      \     'usePlaceholders': v:true,
-      \     'completionDocumentation': v:true,
-      \     'watchFileChanges': v:true,
-      \     'hoverKind': 'SingleLine',
-      \   }},
-      \ })
-endif
-
-" dlang
-if executable('dls')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'dls',
-      \ 'cmd': {server_info->['dls']},
-      \ 'whitelist': ['d'],
-      \ })
-endif
-
-" C, C++
-if executable('ccls')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'ccls',
-        \ 'cmd': {server_info->['ccls']},
-        \ 'whitelist': ['c', 'cpp'],
-        \ })
-endif
-"if executable('ccls')
-"  au User lsp_setup call lsp#register_server({
-"      \ 'name': 'ccls',
-"      \ 'cmd': {server_info->['ccls']},
-"      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-"      \ 'whitelist': ['c', 'cpp'],
-"      \ })
-"endif
-
-" python
-if executable('pyls')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'pyls',
-      \ 'cmd': {server_info->['pyls']},
-      \ 'whitelist': ['python'],
-      \ })
-endif
-
-" javascript & typescript
-if executable('typescript-language-server')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'javascript support using typescript-language-server',
-      \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-      \ })
-endif
-
-" Ruby
-if executable('solargraph')
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['rb'],
-        \ })
-endif
-
-"rust
-if executable('rls')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'rls',
-      \ 'cmd': {server_info->['rls']},
-      \ 'whitelist': ['rust'],
-      \ })
-endif
+" asyncomplete-file
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
 " }}}
 
 " airline {{{
