@@ -10,6 +10,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete-necovim.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'Shougo/neco-vim'
 Plug 'simeji/winresizer'
 Plug 'Yggdroot/indentLine'
@@ -28,7 +29,6 @@ Plug 'liuchengxu/vim-clap'
 Plug 'lambdalisue/gina.vim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deol.nvim'
 Plug 'w0ng/vim-hybrid'
 Plug 'taigacute/gruvbox9'
 Plug 'cocopon/iceberg.vim'
@@ -47,7 +47,6 @@ Plug 'vim-jp/autofmt'
 Plug 'andymass/vim-matchup'
 Plug 'cocopon/vaffle.vim'
 Plug 'higashi000/opensiv3d.vim'
-Plug 'lambdalisue/fila.vim'
 
 call plug#end()
 " }}}
@@ -65,7 +64,7 @@ set updatetime=1000
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
-set expandtab
+"set expandtab
 set smarttab
 set cindent
 " if .py file open
@@ -215,6 +214,10 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
+
+let g:lsp_settings = {
+\  'clangd': {'cmd': ['ccls']}
+\}
 " }}}
 
 " airline {{{
