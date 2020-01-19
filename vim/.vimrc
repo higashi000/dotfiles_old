@@ -64,7 +64,7 @@ set updatetime=1000
 set shiftwidth=2
 set tabstop=2
 set softtabstop=2
-"set expandtab
+set expandtab
 set smarttab
 set cindent
 " if .py file open
@@ -239,6 +239,7 @@ let g:user_emmet_leader_key='<C-y>'
 " gina.vim
 noremap <Left> :Gina add %<CR>
 noremap <Right> :Gina commit %<CR>
+noremap <Up> :Gina push<CR>
 
 " autofmt
 set formatexpr=autofmt#japanese#formatexpr()
