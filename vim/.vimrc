@@ -8,21 +8,19 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete-necovim.vim'
+"Plug 'prabirshrestha/asyncomplete-necovim.vim'
+"Plug 'Shougo/neco-vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'Shougo/neco-vim'
 Plug 'simeji/winresizer'
 Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'tomtom/tcomment_vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'elzr/vim-json'
 Plug 'skanehira/translate.vim'
-Plug 'fatih/vim-go'
 Plug 'cohama/lexima.vim'
 Plug 'mattn/webapi-vim'
 Plug 'liuchengxu/vim-clap'
@@ -47,6 +45,8 @@ Plug 'vim-jp/autofmt'
 Plug 'andymass/vim-matchup'
 Plug 'cocopon/vaffle.vim'
 Plug 'higashi000/opensiv3d.vim'
+Plug 'Shougo/echodoc.vim'
+Plug 'mattn/vim-goimports'
 
 call plug#end()
 " }}}
@@ -201,11 +201,11 @@ nnoremap <silent> <Leader>pe :LspPreviousError<CR>
 nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
 " VimScript
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-    \ 'name': 'necovim',
-    \ 'whitelist': ['vim'],
-    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-    \ }))
+"au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+"    \ 'name': 'necovim',
+"    \ 'whitelist': ['vim'],
+"    \ 'completor': function('asyncomplete#sources#necovim#completor'),
+"    \ }))
 
 " asyncomplete-file
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
@@ -244,3 +244,7 @@ noremap <Up> :Gina push<CR>
 " autofmt
 set formatexpr=autofmt#japanese#formatexpr()
 let autofmt_allow_over_tw=1
+
+" echodoc.vim
+set cmdheight=2
+let g:echodoc#enable_at_startup = 1
