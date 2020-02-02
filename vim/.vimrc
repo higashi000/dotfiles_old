@@ -22,6 +22,7 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'elzr/vim-json'
 Plug 'skanehira/translate.vim'
 Plug 'cohama/lexima.vim'
+"Plug 'mattn/vim-lexiv'
 Plug 'mattn/webapi-vim'
 Plug 'liuchengxu/vim-clap'
 Plug 'lambdalisue/gina.vim'
@@ -37,7 +38,7 @@ Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 Plug 'Shougo/deol.nvim'
 Plug 'vim/killersheep'
 Plug 'airblade/vim-gitgutter'
@@ -47,6 +48,9 @@ Plug 'cocopon/vaffle.vim'
 Plug 'higashi000/opensiv3d.vim'
 Plug 'Shougo/echodoc.vim'
 Plug 'mattn/vim-goimports'
+Plug 'easymotion/vim-easymotion'
+Plug 'mattn/vim-sonictemplate'
+Plug 'lambdalisue/fern.vim'
 
 call plug#end()
 " }}}
@@ -55,10 +59,14 @@ call plug#end()
 syntax enable
 colorscheme iceberg
 set background=dark
+" https://yuroyoro.hatenablog.com/entry/2014/08/12/144157 {{{
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+"}}}
 "}}}
 
 " CursorHold timing
-set updatetime=1000
+"set updatetime=1000
 
 " indent setting {{{
 set shiftwidth=2
@@ -72,10 +80,11 @@ augroup PythonIndent
   autocmd!
   autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
+
 " }}}
 
 " decision command time
-set timeout timeoutlen=50
+"set timeout timeoutlen=50
 
 " highlight in search result
 set hlsearch
@@ -113,7 +122,7 @@ noremap <silent> <ESC><ESC> :noh<CR>
 " `s;;` to `std::`
 inoremap s;; std::
 " set leaderkey
-let mapleader = "\<Alt>"
+let mapleader = "\<Space>"
 " `;` to ':' in normal mode
 noremap ; :
 " escape terminal mode
@@ -168,18 +177,11 @@ let g:vim_json_syntax_conceal = 0
 " winresizer
 let g:winresizer_start_key = '<C-T>'
 
-" vim-go
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-
 " asyncomplete
 let g:asyncomplete_auto_popup = 1
 
 " NERDTree
 noremap <silent> <C-n> :NERDTreeToggle<CR>
-
-" fila.vim
-"noremap <silent> <C-n> :Fila<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
@@ -240,6 +242,7 @@ let g:user_emmet_leader_key='<C-y>'
 noremap <Left> :Gina add %<CR>
 noremap <Right> :Gina commit %<CR>
 noremap <Up> :Gina push<CR>
+noremap <Down> :vs<CR> :Gina diff<CR>
 
 " autofmt
 set formatexpr=autofmt#japanese#formatexpr()
