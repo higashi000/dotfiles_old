@@ -1,5 +1,9 @@
 set fileencoding=utf-8 fileformat=unix
 
+set number
+
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-acqua/
+
 " vim-plug {{{
 call plug#begin('~/.vim/plugged')
 
@@ -8,6 +12,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
+"Plug 'prabirshrestha/asyncomplete-necovim.vim'
+"Plug 'Shougo/neco-vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'simeji/winresizer'
@@ -20,13 +26,16 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'elzr/vim-json'
 Plug 'skanehira/translate.vim'
 Plug 'cohama/lexima.vim'
+"Plug 'mattn/vim-lexiv'
 Plug 'mattn/webapi-vim'
 Plug 'liuchengxu/vim-clap'
+Plug 'rust-lang/rust.vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'w0ng/vim-hybrid'
 Plug 'taigacute/gruvbox9'
+Plug 'rbtnn/vim-mrw'
 Plug 'cocopon/iceberg.vim'
 Plug 'cespare/vim-toml'
 Plug 'vim-jp/vital.vim'
@@ -48,6 +57,7 @@ Plug 'mattn/vim-goimports'
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/vim-sonictemplate'
 Plug 'lambdalisue/fern.vim'
+Plug 'thinca/vim-quickrun'
 
 call plug#end()
 " }}}
@@ -56,10 +66,6 @@ call plug#end()
 syntax enable
 colorscheme iceberg
 set background=dark
-" https://yuroyoro.hatenablog.com/entry/2014/08/12/144157 {{{
-autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-autocmd FileType go :match goErr /\<err\>/
-"}}}
 "}}}
 
 " CursorHold timing
@@ -146,23 +152,23 @@ noremap k gk
 " " }}}
 
 " line number {{{
-augroup lineNumber
-  autocmd!
-  autocmd CursorMoved,CursorMovedI * call SetLineNumber(1)
-  autocmd CursorHold,CursorHoldI * call SetLineNumber(0)
-augroup END
-
-function! SetLineNumber(whichOpt)
-  if a:whichOpt
-    set relativenumber
-    set nonumber
-    highlight LineNr ctermfg=166
-  else
-    set number
-    set norelativenumber
-    highlight LineNr ctermfg=239
-  endif
-endfunction
+"augroup lineNumber
+"  autocmd!
+"  autocmd CursorMoved,CursorMovedI * call SetLineNumber(1)
+"  autocmd CursorHold,CursorHoldI * call SetLineNumber(0)
+"augroup END
+"
+"function! SetLineNumber(whichOpt)
+"  if a:whichOpt
+"    set relativenumber
+"    set nonumber
+"    highlight LineNr ctermfg=166
+"  else
+"    set number
+"    set norelativenumber
+"    highlight LineNr ctermfg=239
+"  endif
+"endfunction
 " }}}
 
 " plugin update command
@@ -178,7 +184,12 @@ let g:winresizer_start_key = '<C-T>'
 let g:asyncomplete_auto_popup = 1
 
 " NERDTree
-noremap <silent> <C-n> :NERDTreeToggle<CR>
+"noremap <silent> <C-n> :NERDTreeToggle<CR>
+
+noremap <silent> <C-n> :Fern . -drawer<CR>
+
+" fila.vim
+"noremap <silent> <C-n> :Fila<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
@@ -248,3 +259,13 @@ let autofmt_allow_over_tw=1
 " echodoc.vim
 set cmdheight=2
 let g:echodoc#enable_at_startup = 1
+
+nmap <unique> <c-y><c-b> <plug>(sonictemplate-postfix)
+
+" rus.vim
+let g:rustfmt_autosave = 1
+
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-diacord/
+
+" QuickRun
+noremap <silent> <Leader>q :QuickRun<CR>
