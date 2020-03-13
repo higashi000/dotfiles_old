@@ -12,6 +12,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
+Plug 'vim-jp/vimdoc-ja'
 "Plug 'prabirshrestha/asyncomplete-necovim.vim'
 "Plug 'Shougo/neco-vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
@@ -31,8 +32,6 @@ Plug 'mattn/webapi-vim'
 Plug 'liuchengxu/vim-clap'
 Plug 'rust-lang/rust.vim'
 Plug 'lambdalisue/gina.vim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'w0ng/vim-hybrid'
 Plug 'taigacute/gruvbox9'
 Plug 'rbtnn/vim-mrw'
@@ -98,6 +97,8 @@ set cursorcolumn
 set foldmethod=marker
 
 set backspace=indent,eol,start
+
+set helplang=ja
 
 "clipboard
 set clipboard^=unnamedplus
@@ -269,3 +270,7 @@ set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-diacord/
 
 " QuickRun
 noremap <silent> <Leader>q :QuickRun<CR>
+
+" sonictemplate.vim
+let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
+
