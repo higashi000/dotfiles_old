@@ -6,17 +6,26 @@ set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-acqua/
 
 " vim-plug {{{
 call plug#begin('~/.vim/plugged')
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-lsp-settings'
-Plug 'vim-jp/vimdoc-ja'
-"Plug 'prabirshrestha/asyncomplete-necovim.vim'
-"Plug 'Shougo/neco-vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'lighttiger2505/deoplete-vim-lsp'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'vim-jp/vimdoc-ja'
+""Plug 'prabirshrestha/asyncomplete-necovim.vim'
+""Plug 'Shougo/neco-vim'
+"Plug 'prabirshrestha/asyncomplete-file.vim'
+"Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'simeji/winresizer'
 Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
@@ -51,7 +60,7 @@ Plug 'vim-jp/autofmt'
 Plug 'andymass/vim-matchup'
 Plug 'cocopon/vaffle.vim'
 Plug 'higashi000/opensiv3d.vim'
-Plug 'Shougo/echodoc.vim'
+"Plug 'Shougo/echodoc.vim'
 Plug 'mattn/vim-goimports'
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/vim-sonictemplate'
