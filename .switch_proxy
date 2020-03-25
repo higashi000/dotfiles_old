@@ -27,7 +27,7 @@ function unset_proxy
 end
 
 function get_ssid
-    nmcli dev status | grep '接続済み' | awk '{print $4}'
+    nmcli dev status | grep 'wifi' | grep '接続済み' | awk '{print $4}'
 end
 
 get_ssid
