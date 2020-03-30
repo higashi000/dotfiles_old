@@ -1,0 +1,5 @@
+\(\S\+\)\.iferr$
+	if {{$1}} != nil {
+		log.Println({{$1}})
+	}
+	{{_cursor_}}
