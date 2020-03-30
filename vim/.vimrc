@@ -2,23 +2,15 @@ set fileencoding=utf-8 fileformat=unix
 
 set number
 
-set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-acqua/
-
 " vim-plug {{{
 call plug#begin('~/.vim/plugged')
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
-
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'lighttiger2505/deoplete-vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'simeji/winresizer'
 Plug 'Yggdroot/indentLine'
 Plug 'bronson/vim-trailing-whitespace'
@@ -52,12 +44,13 @@ Plug 'vim-jp/autofmt'
 Plug 'andymass/vim-matchup'
 Plug 'cocopon/vaffle.vim'
 Plug 'higashi000/opensiv3d.vim'
-Plug 'Shougo/echodoc.vim'
 Plug 'mattn/vim-goimports'
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/vim-sonictemplate'
 Plug 'lambdalisue/fern.vim'
 Plug 'thinca/vim-quickrun'
+Plug 'vim-jp/vimdoc-ja'
+Plug 'higashi000/opensiv3d.vim'
 
 call plug#end()
 " }}}
@@ -67,9 +60,6 @@ syntax enable
 colorscheme iceberg
 set background=dark
 "}}}
-
-" CursorHold timing
-"set updatetime=1000
 
 " indent setting {{{
 set shiftwidth=2
@@ -84,10 +74,11 @@ augroup PythonIndent
   autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
+augroup Stpl
+  autocmd!
+  autocmd FileType stpl set noexpandtab
+augroup END
 " }}}
-
-" decision command time
-"set timeout timeoutlen=50
 
 " highlight in search result
 set hlsearch
@@ -99,7 +90,7 @@ set foldmethod=marker
 
 set backspace=indent,eol,start
 
-set helplang=ja
+set helplang=ja,en
 
 "clipboard
 set clipboard^=unnamedplus
@@ -228,7 +219,7 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ }))
 
 let g:lsp_settings = {
-\  'clangd': {'cmd': ['ccls']}
+\  'clangd': {'cmd': ['ccls']},
 \}
 " }}}
 
@@ -262,8 +253,6 @@ let autofmt_allow_over_tw=1
 set cmdheight=2
 let g:echodoc#enable_at_startup = 1
 
-nmap <unique> <c-y><c-b> <plug>(sonictemplate-postfix)
-
 " rus.vim
 let g:rustfmt_autosave = 1
 
@@ -274,4 +263,3 @@ noremap <silent> <Leader>q :QuickRun<CR>
 
 " sonictemplate.vim
 let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
-
