@@ -3,3 +3,10 @@
 		log.Println({{$1}})
 	}
 	{{_cursor_}}
+
+\(\S\+\)\.\(\S\+\)\.gin$
+	func {{$1}}(r *gin.Engine) {
+		r.{{$2}}("{{_cursor_}}", func(c *gin.Context) {
+
+		})
+	}
