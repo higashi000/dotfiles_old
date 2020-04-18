@@ -51,6 +51,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'higashi000/opensiv3d.vim'
+Plug 'pechorin/any-jump.vim'
 
 call plug#end()
 " }}}
@@ -90,6 +91,7 @@ set foldmethod=marker
 
 set backspace=indent,eol,start
 
+" vim-jp/vimdoc-ja
 set helplang=ja,en
 
 "clipboard
@@ -218,9 +220,6 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
 
-let g:lsp_settings = {
-\  'clangd': {'cmd': ['ccls']},
-\}
 " }}}
 
 " airline {{{
