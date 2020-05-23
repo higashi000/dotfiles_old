@@ -2,58 +2,23 @@ set fileencoding=utf-8 fileformat=unix
 
 set number
 
-" vim-plug {{{
-call plug#begin('~/.vim/plugged')
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'simeji/winresizer'
-Plug 'Yggdroot/indentLine'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'osyo-manga/vim-anzu'
-Plug 'elzr/vim-json'
-Plug 'skanehira/translate.vim'
-Plug 'cohama/lexima.vim'
-Plug 'mattn/webapi-vim'
-Plug 'liuchengxu/vim-clap'
-Plug 'rust-lang/rust.vim'
-Plug 'lambdalisue/gina.vim'
-Plug 'w0ng/vim-hybrid'
-Plug 'taigacute/gruvbox9'
-Plug 'rbtnn/vim-mrw'
-Plug 'cocopon/iceberg.vim'
-Plug 'cespare/vim-toml'
-Plug 'vim-jp/vital.vim'
-Plug 'tpope/vim-markdown'
-Plug 'kannokanno/previm'
-Plug 'tyru/open-browser.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
-Plug 'mattn/emmet-vim'
-Plug 'Shougo/deol.nvim'
-Plug 'vim/killersheep'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-jp/autofmt'
-Plug 'andymass/vim-matchup'
-Plug 'cocopon/vaffle.vim'
-Plug 'higashi000/opensiv3d.vim'
-Plug 'mattn/vim-goimports'
-Plug 'easymotion/vim-easymotion'
-Plug 'mattn/vim-sonictemplate'
-Plug 'lambdalisue/fern.vim'
-Plug 'thinca/vim-quickrun'
-Plug 'vim-jp/vimdoc-ja'
-Plug 'higashi000/opensiv3d.vim'
-Plug 'pechorin/any-jump.vim'
+" dein.vim --- {{{
+if &compatible
+  set nocompatible
+endif
 
-call plug#end()
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('/home/higashi/.cache/dein')
+  call dein#begin('~/.cache/dein')
+  call dein#load_toml('~/dotfiles/vim/toml/dein.toml', {'lazy' : 0})
+  call dein#end()
+  call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
 " }}}
 
 " colorscheme---{{{
@@ -63,9 +28,9 @@ set background=dark
 "}}}
 
 " indent setting {{{
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
+set shiftwidth=3
+set tabstop=3
+set softtabstop=3
 set expandtab
 set smarttab
 set cindent
@@ -89,6 +54,7 @@ set cursorcolumn
 " folding setting
 set foldmethod=marker
 
+" enable backspace
 set backspace=indent,eol,start
 
 " vim-jp/vimdoc-ja
@@ -97,7 +63,7 @@ set helplang=ja,en
 "clipboard
 set clipboard^=unnamedplus
 
-set nostartofline
+"set nostartofline
 
 " buffer move
 noremap <silent><C-x> :bdelete<CR>
@@ -111,18 +77,18 @@ set noerrorbells
 " status line
 set laststatus=2
 
-" sarahck.vim
-set runtimepath+=/home/higashi/vimplugin/sarahck.vim
-"source ~/.slacktoken.vim
-
 " highlight cancel
 noremap <silent> <ESC><ESC> :noh<CR>
+
 " `s;;` to `std::`
 inoremap s;; std::
+
 " set leaderkey
 let mapleader = "\<Space>"
+
 " `;` to ':' in normal mode
 noremap ; :
+
 " escape terminal mode
 tnoremap <C-[> <C-\><C-n>
 
@@ -166,25 +132,24 @@ noremap k gk
 "endfunction
 " }}}
 
+" Respect for https://github.com/yukiycino-dotfiles/dotfiles/blob/master/.vimrc {{{
+nnoremap <Left>  :vertical resize -1<CR>
+nnoremap <Right> :vertical resize +1<CR>
+nnoremap <Up>    :resize -1<CR>
+nnoremap <Down>  :resize +1<CR>
+" }}}
+
 " plugin update command
 command UpdatePlugin call dein#update()
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
 
-" winresizer
-let g:winresizer_start_key = '<C-T>'
-
 " asyncomplete
 let g:asyncomplete_auto_popup = 1
 
-" NERDTree
-"noremap <silent> <C-n> :NERDTreeToggle<CR>
-
+" fern.vim
 noremap <silent> <C-n> :Fern . -drawer<CR>
-
-" fila.vim
-"noremap <silent> <C-n> :Fila<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
@@ -205,13 +170,6 @@ nnoremap <silent> <Leader>ne :LspNextError<CR>
 nnoremap <silent> <Leader>pe :LspPreviousError<CR>
 nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
-" VimScript
-"au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-"    \ 'name': 'necovim',
-"    \ 'whitelist': ['vim'],
-"    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-"    \ }))
-
 " asyncomplete-file
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
@@ -224,7 +182,7 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
 
 " airline {{{
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'bubblegum'
+let g:airline_theme = 'iceberg'
 let g:airline#extensions#tabline#enabled = 1
 " }}}
 
@@ -238,12 +196,6 @@ nmap # <Plug>(anzu-sharp)
 " emmet-vim
 let g:user_emmet_leader_key='<C-y>'
 
-" gina.vim
-noremap <Left> :Gina add %<CR>
-noremap <Right> :Gina commit %<CR>
-noremap <Up> :Gina push<CR>
-noremap <Down> :vs<CR> :Gina diff<CR>
-
 " autofmt
 set formatexpr=autofmt#japanese#formatexpr()
 let autofmt_allow_over_tw=1
@@ -252,7 +204,7 @@ let autofmt_allow_over_tw=1
 set cmdheight=2
 let g:echodoc#enable_at_startup = 1
 
-" rus.vim
+" rust.vim
 let g:rustfmt_autosave = 1
 
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-diacord/
