@@ -12,6 +12,8 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('/home/higashi/.cache/dein')
   call dein#begin('~/.cache/dein')
   call dein#load_toml('~/dotfiles/vim/toml/dein.toml', {'lazy' : 0})
+  call dein#add('lambdalisue/readablefold.vim')
+  call dein#add('lambdalisue/vim-backslash')
   call dein#end()
   call dein#save_state()
 endif
@@ -62,6 +64,10 @@ set helplang=ja,en
 
 "clipboard
 set clipboard^=unnamedplus
+
+" spell check
+"setlocal spell spelllang=en_us
+"set spelloptions+=camel
 
 "set nostartofline
 
