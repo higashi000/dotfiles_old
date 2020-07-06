@@ -10,12 +10,54 @@ endif
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('/home/higashi/.cache/dein')
-  call dein#begin('~/.cache/dein')
-  call dein#load_toml('~/dotfiles/vim/toml/dein.toml', {'lazy' : 0})
-  call dein#add('lambdalisue/readablefold.vim')
-  call dein#add('lambdalisue/vim-backslash')
-  call dein#end()
-  call dein#save_state()
+   call dein#begin('~/.cache/dein')
+
+   call dein#add('Shougo/dein.vim')
+   call dein#add('Shougo/denite.nvim')
+   call dein#add('Shougo/defx.nvim')
+   call dein#add('prabirshrestha/vim-lsp')
+   call dein#add('mattn/vim-lsp-settings')
+   call dein#add('Shougo/deoplete.nvim')
+   call dein#add('lighttiger2505/deoplete-vim-lsp')
+   call dein#add('Yggdroot/indentLine')
+   call dein#add('bronson/vim-trailing-whitespace')
+   call dein#add('vim-airline/vim-airline')
+   call dein#add('vim-airline/vim-airline-themes')
+   call dein#add('osyo-manga/vim-anzu')
+   call dein#add('elzr/vim-json')
+   call dein#add('cohama/lexima.vim')
+   call dein#add('liuchengxu/vim-clap')
+   call dein#add('rust-lang/rust.vim')
+   call dein#add('lambdalisue/gina.vim')
+   call dein#add('rbtnn/vim-mrw')
+   call dein#add('cocopon/iceberg.vim')
+   call dein#add('cespare/vim-toml')
+   call dein#add('vim-jp/vital.vim')
+   call dein#add('tpope/vim-markdown')
+   call dein#add('kannokanno/previm')
+   call dein#add('rhysd/vim-clang-format')
+   call dein#add('tyru/open-browser.vim')
+   call dein#add('ryanoasis/vim-devicons')
+   call dein#add('mattn/emmet-vim')
+   call dein#add('airblade/vim-gitgutter')
+   call dein#add('vim-jp/autofmt')
+   call dein#add('cocopon/vaffle.vim')
+   call dein#add('mattn/vim-goimports')
+   call dein#add('easymotion/vim-easymotion')
+   call dein#add('mattn/vim-sonictemplate')
+   call dein#add('lambdalisue/fern.vim')
+   call dein#add('thinca/vim-quickrun')
+   call dein#add('vim-jp/vimdoc-ja')
+   call dein#add('pechorin/any-jump.vim')
+   call dein#add('roxma/nvim-yarp')
+   call dein#add('roxma/vim-hug-neovim-rpc')
+   call dein#add('lambdalisue/readablefold.vim')
+   call dein#add('lambdalisue/vim-backslash')
+   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+   call dein#add('yuki-ycino/fzf-preview.vim')
+
+   call dein#end()
+   call dein#save_state()
 endif
 
 if dein#check_install()
@@ -155,7 +197,7 @@ let g:vim_json_syntax_conceal = 0
 let g:asyncomplete_auto_popup = 1
 
 " fern.vim
-noremap <silent> <C-n> :Fern . -drawer<CR>
+"noremap <silent> <C-n> :Fern . -drawer<CR>
 
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
@@ -172,6 +214,7 @@ nnoremap <silent> <Leader>d :LspDefinition<CR>
 nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
 nnoremap <silent> <Leader>h :LspHover<CR>
 nnoremap <silent> <Leader>r :LspRename<CR>
+nnoremap <silent> <Leader>a :LspCodeAction<CR>
 nnoremap <silent> <Leader>ne :LspNextError<CR>
 nnoremap <silent> <Leader>pe :LspPreviousError<CR>
 nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
@@ -220,3 +263,87 @@ noremap <silent> <Leader>q :QuickRun<CR>
 
 " sonictemplate.vim
 let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
+
+" denite.nvim
+noremap <silent><C-n> :Defx<CR>
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+   nnoremap <silent><buffer><expr> <CR>
+   \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
+" defix.nvim
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+   " Define mappings
+   nnoremap <silent><buffer><expr> <CR>
+   \ defx#do_action('open')
+   nnoremap <silent><buffer><expr> c
+   \ defx#do_action('copy')
+   nnoremap <silent><buffer><expr> p
+   \ defx#do_action('paste')
+   nnoremap <silent><buffer><expr> l
+   \ defx#do_action('open')
+   nnoremap <silent><buffer><expr> v
+   \ defx#do_action('open', 'vsplit')
+   nnoremap <silent><buffer><expr> t
+   \ defx#do_action('open_tree', 'toggle')
+   nnoremap <silent><buffer><expr> P
+   \ defx#do_action('preview')
+   nnoremap <silent><buffer><expr> ND
+   \ defx#do_action('new_directory')
+   nnoremap <silent><buffer><expr> NF
+   \ defx#do_action('new_file')
+   nnoremap <silent><buffer><expr> C
+   \ defx#do_action('toggle_columns',
+         \                'mark:indent:icon:filename:type:size:time')
+   nnoremap <silent><buffer><expr> S
+   \ defx#do_action('toggle_sort', 'time')
+   nnoremap <silent><buffer><expr> d
+   \ defx#do_action('remove')
+   nnoremap <silent><buffer><expr> r
+   \ defx#do_action('rename')
+   nnoremap <silent><buffer><expr> !
+   \ defx#do_action('execute_command')
+   nnoremap <silent><buffer><expr> x
+   \ defx#do_action('execute_system')
+   nnoremap <silent><buffer><expr> yy
+   \ defx#do_action('yank_path')
+   nnoremap <silent><buffer><expr> .
+   \ defx#do_action('toggle_ignored_files')
+   nnoremap <silent><buffer><expr> ;
+   \ defx#do_action('repeat')
+   nnoremap <silent><buffer><expr> h
+   \ defx#do_action('cd', ['..'])
+   nnoremap <silent><buffer><expr> ~
+   \ defx#do_action('cd')
+   nnoremap <silent><buffer><expr> q
+   \ defx#do_action('quit')
+   nnoremap <silent><buffer><expr> <Space>
+   \ defx#do_action('toggle_select') . 'j'
+   nnoremap <silent><buffer><expr> *
+   \ defx#do_action('toggle_select_all')
+   nnoremap <silent><buffer><expr> j
+   \ line('.') == line('$') ? 'gg' : 'j'
+   nnoremap <silent><buffer><expr> k
+   \ line('.') == 1 ? 'G' : 'k'
+   nnoremap <silent><buffer><expr> <C-l>
+   \ defx#do_action('redraw')
+   nnoremap <silent><buffer><expr> <C-g>
+   \ defx#do_action('print')
+   nnoremap <silent><buffer><expr> cd
+   \ defx#do_action('change_vim_cwd')
+endfunction
+
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
