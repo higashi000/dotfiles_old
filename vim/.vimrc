@@ -53,8 +53,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('roxma/vim-hug-neovim-rpc')
    call dein#add('lambdalisue/readablefold.vim')
    call dein#add('lambdalisue/vim-backslash')
-   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-   call dein#add('yuki-ycino/fzf-preview.vim')
 
    call dein#end()
    call dein#save_state()
@@ -196,9 +194,6 @@ let g:vim_json_syntax_conceal = 0
 " asyncomplete
 let g:asyncomplete_auto_popup = 1
 
-" fern.vim
-"noremap <silent> <C-n> :Fern . -drawer<CR>
-
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
 let g:vim_markdown_folding_disabled=1
@@ -256,8 +251,6 @@ let g:echodoc#enable_at_startup = 1
 " rust.vim
 let g:rustfmt_autosave = 1
 
-set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-diacord/
-
 " QuickRun
 noremap <silent> <Leader>q :QuickRun<CR>
 
@@ -265,35 +258,33 @@ noremap <silent> <Leader>q :QuickRun<CR>
 let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
 
 " denite.nvim
-noremap <silent><C-n> :Defx<CR>
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
-   nnoremap <silent><buffer><expr> <CR>
-   \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
   nnoremap <silent><buffer><expr> d
   \ denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p
   \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
   nnoremap <silent><buffer><expr> i
   \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
   nnoremap <silent><buffer><expr> <Space>
   \ denite#do_map('toggle_select').'j'
 endfunction
 
-" defix.nvim
+" defx.nvim
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
-   " Define mappings
    nnoremap <silent><buffer><expr> <CR>
-   \ defx#do_action('open')
+   \ defx#do_action('drop')
    nnoremap <silent><buffer><expr> c
    \ defx#do_action('copy')
    nnoremap <silent><buffer><expr> p
    \ defx#do_action('paste')
    nnoremap <silent><buffer><expr> l
-   \ defx#do_action('open')
+   \ defx#do_action('drop')
    nnoremap <silent><buffer><expr> v
    \ defx#do_action('open', 'vsplit')
    nnoremap <silent><buffer><expr> t
@@ -344,6 +335,15 @@ function! s:defx_my_settings() abort
    nnoremap <silent><buffer><expr> cd
    \ defx#do_action('change_vim_cwd')
 endfunction
+noremap <silent> <C-n> :Defx<CR>
+
+call defx#custom#option('_', {
+      \ 'winwidth': 40,
+      \ 'split': 'vertical',
+      \ 'direction': 'topleft',
+      \ 'show_ignored_files': 0,
+      \ 'toggle': 1,
+      \ })
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
