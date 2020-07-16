@@ -53,6 +53,9 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('roxma/vim-hug-neovim-rpc')
    call dein#add('lambdalisue/readablefold.vim')
    call dein#add('lambdalisue/vim-backslash')
+   call dein#add('pocke/keycast.vim')
+   call dein#add('pocke/vanner')
+   call dein#add('higashi000/vimvimsemi')
 
    call dein#end()
    call dein#save_state()
@@ -257,7 +260,7 @@ noremap <silent> <Leader>q :QuickRun<CR>
 " sonictemplate.vim
 let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
 
-" denite.nvim
+" denite mappings
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <CR>
@@ -277,6 +280,7 @@ endfunction
 " defx.nvim
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
+   " Define mappings
    nnoremap <silent><buffer><expr> <CR>
    \ defx#do_action('drop')
    nnoremap <silent><buffer><expr> c
