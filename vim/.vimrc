@@ -18,6 +18,10 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('prabirshrestha/vim-lsp')
    call dein#add('mattn/vim-lsp-settings')
    call dein#add('Shougo/deoplete.nvim')
+   if !has('nvim')
+      call dein#add('roxma/nvim-yarp')
+      call dein#add('roxma/vim-hug-neovim-rpc')
+   endif
    call dein#add('lighttiger2505/deoplete-vim-lsp')
    call dein#add('Yggdroot/indentLine')
    call dein#add('bronson/vim-trailing-whitespace')
@@ -49,8 +53,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('thinca/vim-quickrun')
    call dein#add('vim-jp/vimdoc-ja')
    call dein#add('pechorin/any-jump.vim')
-   call dein#add('roxma/nvim-yarp')
-   call dein#add('roxma/vim-hug-neovim-rpc')
    call dein#add('lambdalisue/readablefold.vim')
    call dein#add('lambdalisue/vim-backslash')
    call dein#add('pocke/keycast.vim')
@@ -98,6 +100,8 @@ set cursorline
 set cursorcolumn
 " folding setting
 set foldmethod=marker
+
+set tabline=2
 
 " enable backspace
 set backspace=indent,eol,start
