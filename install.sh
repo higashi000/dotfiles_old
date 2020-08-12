@@ -20,6 +20,17 @@ case $_needProxySettings in
     break;;
 esac
 
+echo -n "Are you install dein.vim(y/n): "
+read _NEEDDEIN
+case $_NEEDDEIN in
+   [y] | '' )
+      curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+      sh ./installer.sh ~/.cache/dein
+      break;;
+   [n] | * )
+      break;;
+esac
+
 echo -n "Are you install vim-plug?(y/n): "
 read _NEEDVIMPLUG
 case $_NEEDVIMPLUG in
@@ -30,16 +41,8 @@ case $_NEEDVIMPLUG in
     break;;
 esac
 
-echo -n "Do you use vim or Neovim?(nvim/vim): "
-read _whichVimNvim
-case $_whichVimNvim in
-  [nvim] | *)
-    cp -rf ./nvim ~/.config/
-    break;;
-  [vim] | '')
-    cp ./vim/.vimrc ~/
-    break;;
-esac
+cp -rf ./nvim ~/.config/
+cp ./vim/.vimrc ~/
 
 echo -n "Are you need git settings?(y/n): "
 read _needGitSettings
