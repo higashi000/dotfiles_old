@@ -18,10 +18,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('prabirshrestha/vim-lsp')
    call dein#add('mattn/vim-lsp-settings')
    call dein#add('Shougo/deoplete.nvim')
-   if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-   endif
    call dein#add('lighttiger2505/deoplete-vim-lsp')
    call dein#add('Yggdroot/indentLine')
    call dein#add('bronson/vim-trailing-whitespace')
@@ -58,6 +54,11 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('pocke/keycast.vim')
    call dein#add('pocke/vanner')
    call dein#add('higashi000/vimvimsemi')
+
+   if !has('nvim')
+      call dein#add('roxma/nvim-yarp')
+      call dein#add('roxma/vim-hug-neovim-rpc')
+   endif
 
    call dein#end()
    call dein#save_state()
@@ -355,3 +356,7 @@ call defx#custom#option('_', {
 
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
+
+if has('nvim')
+   set runtimepath+=/home/higashi/go/src/github.com/higashi000/noa.nvim/
+endif
