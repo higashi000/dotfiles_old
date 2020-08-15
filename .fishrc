@@ -1,9 +1,7 @@
 #PATH---{{{
 set -x PATH $HOME/.dub/packages/.bin/dls-latest $PATH
+set -x PATH $HOME/go/bin/ $PATH
 #---}}}
-# system settings---{{{
-  source ~/.switch_proxy
-#}}}
 #vim mode settings---{{{
 function fish_user_key_bindings
   for mode in insert default visual
