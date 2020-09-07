@@ -1,5 +1,9 @@
 set fileencoding=utf-8 fileformat=unix
 
+if has('win64')
+   let g:python3_host_prog = 'C:\Users\higashi\AppData\Local\Programs\Python\Python38-32\python'
+endif
+
 set number
 
 " dein.vim --- {{{
@@ -352,6 +356,7 @@ call defx#custom#option('_', {
       \ 'direction': 'topleft',
       \ 'show_ignored_files': 0,
       \ 'toggle': 1,
+      \ 'columns': 'indent:icons:filename:mark',
       \ })
 
 " deoplete.nvim
