@@ -1,15 +1,13 @@
 set fileencoding=utf-8 fileformat=unix
 
-if has('win64')
-   let g:python3_host_prog = 'C:\Users\higashi\AppData\Local\Programs\Python\Python38-32\python'
-endif
-
 set number
 
 " dein.vim --- {{{
 if &compatible
   set nocompatible
 endif
+
+source ~/.dein_token.vim
 
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
@@ -18,12 +16,10 @@ if dein#load_state('/home/higashi/.cache/dein')
 
    call dein#add('Shougo/dein.vim')
    call dein#add('Shougo/denite.nvim')
-   call dein#add('Shougo/defx.nvim')
-   call dein#add('prabirshrestha/vim-lsp')
-   call dein#add('mattn/vim-lsp-settings')
    call dein#add('Shougo/deoplete.nvim')
-   call dein#add('lighttiger2505/deoplete-vim-lsp')
+   call dein#add('Shougo/defx.nvim')
    call dein#add('Yggdroot/indentLine')
+   call dein#add('kristijanhusak/defx-icons')
    call dein#add('bronson/vim-trailing-whitespace')
    call dein#add('vim-airline/vim-airline')
    call dein#add('vim-airline/vim-airline-themes')
@@ -40,7 +36,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('tpope/vim-markdown')
    call dein#add('kannokanno/previm')
    call dein#add('rhysd/vim-clang-format')
-   call dein#add('tyru/open-browser.vim')
    call dein#add('ryanoasis/vim-devicons')
    call dein#add('mattn/emmet-vim')
    call dein#add('airblade/vim-gitgutter')
@@ -58,15 +53,28 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('pocke/keycast.vim')
    call dein#add('pocke/vanner')
    call dein#add('higashi000/vimvimsemi')
+   call dein#add('leafgarland/typescript-vim')
+   call dein#add('peitalin/vim-jsx-typescript')
 
    if !has('nvim')
       call dein#add('roxma/nvim-yarp')
       call dein#add('roxma/vim-hug-neovim-rpc')
+      call dein#add('prabirshrestha/vim-lsp')
+      call dein#add('mattn/vim-lsp-settings')
+      call dein#add('mattn/vim-lsp-icons')
+      call dein#add('lighttiger2505/deoplete-vim-lsp')
+   endif
+
+   if has('nvim')
+      call dein#add('neovim/nvim-lspconfig')
+      call dein#add('Shougo/deoplete-lsp')
    endif
 
    call dein#end()
    call dein#save_state()
 endif
+
+"call dein#check_update(v:true)
 
 if dein#check_install()
   call dein#install()
@@ -139,7 +147,7 @@ set laststatus=2
 noremap <silent> <ESC><ESC> :noh<CR>
 
 " `s;;` to `std::`
-inoremap s;; std::
+"inoremap s;; std::
 
 " set leaderkey
 let mapleader = "\<Space>"
@@ -217,14 +225,16 @@ let g:lsp_signs_warning = {'text': '▲'}
 
 " complement setting {{{
 " vim-lsp command
-nnoremap <silent> <Leader>d :LspDefinition<CR>
-nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
-nnoremap <silent> <Leader>h :LspHover<CR>
-nnoremap <silent> <Leader>r :LspRename<CR>
-nnoremap <silent> <Leader>a :LspCodeAction<CR>
-nnoremap <silent> <Leader>ne :LspNextError<CR>
-nnoremap <silent> <Leader>pe :LspPreviousError<CR>
-nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+if !has('nvim')
+   nnoremap <silent> <Leader>d :LspDefinition<CR>
+   nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
+   nnoremap <silent> <Leader>h :LspHover<CR>
+   nnoremap <silent> <Leader>r :LspRename<CR>
+   nnoremap <silent> <Leader>a :LspCodeAction<CR>
+   nnoremap <silent> <Leader>ne :LspNextError<CR>
+   nnoremap <silent> <Leader>pe :LspPreviousError<CR>
+   nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+endif
 
 " asyncomplete-file
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
@@ -364,4 +374,21 @@ let g:deoplete#enable_at_startup = 1
 
 if has('nvim')
    set runtimepath+=/home/higashi/go/src/github.com/higashi000/noa.nvim/
+
+endif
+
+" nvim-lspconfig
+if has('nvim')
+lua <<EOF
+require'nvim_lsp'.gopls.setup{}
+EOF
+
+   nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+"   nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
+   nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.signature_help()<CR>
+   nnoremap <silent> <Leader>td   <cmd>lua vim.lsp.buf.type_definition()<CR>
+   nnoremap <silent> <Leader>r    <cmd>lua vim.lsp.buf.references()<CR>
+   nnoremap <silent> <Leader>ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+   nnoremap <silent> <Leader>ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+   nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 endif
