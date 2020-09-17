@@ -17,7 +17,13 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('Shougo/dein.vim')
    call dein#add('Shougo/denite.nvim')
    call dein#add('Shougo/deoplete.nvim')
+   call dein#add('Shougo/deol.nvim')
+   call dein#add('prabirshrestha/vim-lsp')
+   call dein#add('mattn/vim-lsp-settings')
+   call dein#add('mattn/vim-lsp-icons')
+   call dein#add('lighttiger2505/deoplete-vim-lsp')
    call dein#add('Shougo/defx.nvim')
+   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
    call dein#add('Yggdroot/indentLine')
    call dein#add('kristijanhusak/defx-icons')
    call dein#add('bronson/vim-trailing-whitespace')
@@ -59,15 +65,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    if !has('nvim')
       call dein#add('roxma/nvim-yarp')
       call dein#add('roxma/vim-hug-neovim-rpc')
-      call dein#add('prabirshrestha/vim-lsp')
-      call dein#add('mattn/vim-lsp-settings')
-      call dein#add('mattn/vim-lsp-icons')
-      call dein#add('lighttiger2505/deoplete-vim-lsp')
-   endif
-
-   if has('nvim')
-      call dein#add('neovim/nvim-lspconfig')
-      call dein#add('Shougo/deoplete-lsp')
    endif
 
    call dein#end()
@@ -225,7 +222,6 @@ let g:lsp_signs_warning = {'text': '▲'}
 
 " complement setting {{{
 " vim-lsp command
-if !has('nvim')
    nnoremap <silent> <Leader>d :LspDefinition<CR>
    nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
    nnoremap <silent> <Leader>h :LspHover<CR>
@@ -234,7 +230,6 @@ if !has('nvim')
    nnoremap <silent> <Leader>ne :LspNextError<CR>
    nnoremap <silent> <Leader>pe :LspPreviousError<CR>
    nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
-endif
 
 " asyncomplete-file
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
@@ -275,6 +270,11 @@ let g:rustfmt_autosave = 1
 
 " QuickRun
 noremap <silent> <Leader>q :QuickRun<CR>
+let g:quickrun_config = {
+      \     "_": {
+      \        "runner": "vimproc",
+      \     },
+      \  }
 
 " sonictemplate.vim
 let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
@@ -374,21 +374,27 @@ let g:deoplete#enable_at_startup = 1
 
 if has('nvim')
    set runtimepath+=/home/higashi/go/src/github.com/higashi000/noa.nvim/
-
 endif
+
+" deol.nvim
+let g:deol#shell_history_path = '~/.local/share/fish/fish_history'
+nnoremap df :Deol -split=floating<CR>
+nnoremap dv :Deol -split=vertical<CR>
+nnoremap ds :Deol -split=horizontal<CR>
 
 " nvim-lspconfig
-if has('nvim')
-lua <<EOF
-require'nvim_lsp'.gopls.setup{}
-EOF
-
-   nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.definition()<CR>
-"   nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
-   nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.signature_help()<CR>
-   nnoremap <silent> <Leader>td   <cmd>lua vim.lsp.buf.type_definition()<CR>
-   nnoremap <silent> <Leader>r    <cmd>lua vim.lsp.buf.references()<CR>
-   nnoremap <silent> <Leader>ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-   nnoremap <silent> <Leader>ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-   nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-endif
+"if has('nvim')
+"lua <<EOF
+"require'nvim_lsp'.gopls.setup{}
+"require'nvim_lsp'.tsserver.setup{}
+"EOF
+"
+"   nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+""   nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
+"   nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.signature_help()<CR>
+"   nnoremap <silent> <Leader>td   <cmd>lua vim.lsp.buf.type_definition()<CR>
+"   nnoremap <silent> <Leader>r    <cmd>lua vim.lsp.buf.references()<CR>
+"   nnoremap <silent> <Leader>ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+"   nnoremap <silent> <Leader>ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+"   nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+"endif
