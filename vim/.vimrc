@@ -7,8 +7,6 @@ if &compatible
   set nocompatible
 endif
 
-source ~/.dein_token.vim
-
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('/home/higashi/.cache/dein')
@@ -18,6 +16,8 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('Shougo/denite.nvim')
    call dein#add('Shougo/deoplete.nvim')
    call dein#add('Shougo/deol.nvim')
+   call dein#add('Shougo/neosnippet.vim')
+   call dein#add('Shougo/neosnippet-snippets')
    call dein#add('prabirshrestha/vim-lsp')
    call dein#add('mattn/vim-lsp-settings')
    call dein#add('mattn/vim-lsp-icons')
@@ -33,7 +33,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('elzr/vim-json')
    call dein#add('cohama/lexima.vim')
    call dein#add('liuchengxu/vim-clap')
-   call dein#add('rust-lang/rust.vim')
+"   call dein#add('rust-lang/rust.vim')
    call dein#add('lambdalisue/gina.vim')
    call dein#add('rbtnn/vim-mrw')
    call dein#add('cocopon/iceberg.vim')
@@ -49,7 +49,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('cocopon/vaffle.vim')
    call dein#add('mattn/vim-goimports')
    call dein#add('easymotion/vim-easymotion')
-   call dein#add('mattn/vim-sonictemplate')
    call dein#add('lambdalisue/fern.vim')
    call dein#add('thinca/vim-quickrun')
    call dein#add('vim-jp/vimdoc-ja')
@@ -85,9 +84,9 @@ set background=dark
 "}}}
 
 " indent setting {{{
-set shiftwidth=3
-set tabstop=3
-set softtabstop=3
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 set expandtab
 set smarttab
 set cindent
@@ -158,6 +157,42 @@ tnoremap <C-[> <C-\><C-n>
 " turn back
 noremap j gj
 noremap k gk
+
+" " auto save --- {{{
+" augroup autoSave
+"   autocmd!
+"   autocmd CursorHold,CursorHoldI * call Higashi000AutoSave()
+" augroup END
+"
+" " auto save
+" function! Higashi000AutoSave()
+"   " ファイル名がついていないかNERDTreeを開いていたら自動保存しない
+"   let notAutoSavePattern = '\v^NERD_tree_\v\d*|\v^\v$'
+"   if match(expand('%'), notAutoSavePattern) != 0 && !&readonly
+"     :w
+"   endif
+" endfunction
+" " }}}
+
+" line number {{{
+"augroup lineNumber
+"  autocmd!
+"  autocmd CursorMoved,CursorMovedI * call SetLineNumber(1)
+"  autocmd CursorHold,CursorHoldI * call SetLineNumber(0)
+"augroup END
+"
+"function! SetLineNumber(whichOpt)
+"  if a:whichOpt
+"    set relativenumber
+"    set nonumber
+"    highlight LineNr ctermfg=166
+"  else
+"    set number
+"    set norelativenumber
+"    highlight LineNr ctermfg=239
+"  endif
+"endfunction
+" }}}
 
 " Respect for https://github.com/yukiycino-dotfiles/dotfiles/blob/master/.vimrc {{{
 nnoremap <Left>  :vertical resize -1<CR>
@@ -230,7 +265,7 @@ set cmdheight=2
 let g:echodoc#enable_at_startup = 1
 
 " rust.vim
-let g:rustfmt_autosave = 1
+"let g:rustfmt_autosave = 1
 
 " QuickRun
 noremap <silent> <Leader>q :QuickRun<CR>
@@ -241,7 +276,7 @@ let g:quickrun_config = {
       \  }
 
 " sonictemplate.vim
-let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
+"let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
 
 " denite mappings
 autocmd FileType denite call s:denite_my_settings()
@@ -252,16 +287,15 @@ function! s:denite_my_settings() abort
   \ denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p
   \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> q
   \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space>
   \ denite#do_map('toggle_select').'j'
 endfunction
-
-" defx.nvim
 autocmd FileType defx call s:defx_my_settings()
+
 function! s:defx_my_settings() abort
    " Define mappings
    nnoremap <silent><buffer><expr> <CR>
@@ -336,12 +370,46 @@ call defx#custom#option('_', {
 " deoplete.nvim
 let g:deoplete#enable_at_startup = 1
 
-if has('nvim')
-   set runtimepath+=/home/higashi/go/src/github.com/higashi000/noa.nvim/
-endif
-
 " deol.nvim
 let g:deol#shell_history_path = '~/.local/share/fish/fish_history'
 nnoremap df :Deol -split=floating<CR>
 nnoremap dv :Deol -split=vertical<CR>
 nnoremap ds :Deol -split=horizontal<CR>
+
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:neosnippet#snippets_directory='/home/higashi/dotfiles/template/'
+
+"if has('nvim')
+"lua <<EOF
+"require'nvim_lsp'.gopls.setup{}
+"require'nvim_lsp'.tsserver.setup{}
+"EOF
+"
+"   nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+""   nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
+"   nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.signature_help()<CR>
+"   nnoremap <silent> <Leader>td   <cmd>lua vim.lsp.buf.type_definition()<CR>
+"   nnoremap <silent> <Leader>r    <cmd>lua vim.lsp.buf.references()<CR>
+"   nnoremap <silent> <Leader>ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+"   nnoremap <silent> <Leader>ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+"   nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+"endif
