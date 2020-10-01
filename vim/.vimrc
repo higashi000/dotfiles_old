@@ -158,42 +158,6 @@ tnoremap <C-[> <C-\><C-n>
 noremap j gj
 noremap k gk
 
-" " auto save --- {{{
-" augroup autoSave
-"   autocmd!
-"   autocmd CursorHold,CursorHoldI * call Higashi000AutoSave()
-" augroup END
-"
-" " auto save
-" function! Higashi000AutoSave()
-"   " ファイル名がついていないかNERDTreeを開いていたら自動保存しない
-"   let notAutoSavePattern = '\v^NERD_tree_\v\d*|\v^\v$'
-"   if match(expand('%'), notAutoSavePattern) != 0 && !&readonly
-"     :w
-"   endif
-" endfunction
-" " }}}
-
-" line number {{{
-"augroup lineNumber
-"  autocmd!
-"  autocmd CursorMoved,CursorMovedI * call SetLineNumber(1)
-"  autocmd CursorHold,CursorHoldI * call SetLineNumber(0)
-"augroup END
-"
-"function! SetLineNumber(whichOpt)
-"  if a:whichOpt
-"    set relativenumber
-"    set nonumber
-"    highlight LineNr ctermfg=166
-"  else
-"    set number
-"    set norelativenumber
-"    highlight LineNr ctermfg=239
-"  endif
-"endfunction
-" }}}
-
 " Respect for https://github.com/yukiycino-dotfiles/dotfiles/blob/master/.vimrc {{{
 nnoremap <Left>  :vertical resize -1<CR>
 nnoremap <Right> :vertical resize +1<CR>
@@ -274,9 +238,6 @@ let g:quickrun_config = {
       \        "runner": "vimproc",
       \     },
       \  }
-
-" sonictemplate.vim
-"let g:sonictemplate_vim_template_dir = expand('~/dotfiles/vim/template')
 
 " denite mappings
 autocmd FileType denite call s:denite_my_settings()
@@ -395,21 +356,3 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-let g:neosnippet#snippets_directory='/home/higashi/dotfiles/template/'
-
-"if has('nvim')
-"lua <<EOF
-"require'nvim_lsp'.gopls.setup{}
-"require'nvim_lsp'.tsserver.setup{}
-"EOF
-"
-"   nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.definition()<CR>
-""   nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
-"   nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.signature_help()<CR>
-"   nnoremap <silent> <Leader>td   <cmd>lua vim.lsp.buf.type_definition()<CR>
-"   nnoremap <silent> <Leader>r    <cmd>lua vim.lsp.buf.references()<CR>
-"   nnoremap <silent> <Leader>ds    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-"   nnoremap <silent> <Leader>ws    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-"   nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-"endif
