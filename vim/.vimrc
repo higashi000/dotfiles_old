@@ -72,6 +72,10 @@ endif
 
 "call dein#check_update(v:true)
 
+if dein#tap('vital.vim')
+  let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
+endif
+
 if dein#check_install()
   call dein#install()
 endif
@@ -356,3 +360,5 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+set runtimepath+=~/go/src/github.com/higashi000/vim-dotvscode
