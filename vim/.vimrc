@@ -33,7 +33,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('elzr/vim-json')
    call dein#add('cohama/lexima.vim')
    call dein#add('liuchengxu/vim-clap')
-"   call dein#add('rust-lang/rust.vim')
    call dein#add('lambdalisue/gina.vim')
    call dein#add('rbtnn/vim-mrw')
    call dein#add('cocopon/iceberg.vim')
@@ -129,8 +128,6 @@ set clipboard^=unnamedplus
 "setlocal spell spelllang=en_us
 "set spelloptions+=camel
 
-"set nostartofline
-
 " buffer move
 noremap <silent><C-x> :bdelete<CR>
 noremap <silent><C-h> :bprevious<CR>
@@ -145,9 +142,6 @@ set laststatus=2
 
 " highlight cancel
 noremap <silent> <ESC><ESC> :noh<CR>
-
-" `s;;` to `std::`
-"inoremap s;; std::
 
 " set leaderkey
 let mapleader = "\<Space>"
@@ -231,9 +225,6 @@ let autofmt_allow_over_tw=1
 " echodoc.vim
 set cmdheight=2
 let g:echodoc#enable_at_startup = 1
-
-" rust.vim
-"let g:rustfmt_autosave = 1
 
 " QuickRun
 noremap <silent> <Leader>q :QuickRun<CR>
