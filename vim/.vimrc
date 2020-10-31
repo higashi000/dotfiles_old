@@ -16,14 +16,13 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('Shougo/denite.nvim')
    call dein#add('Shougo/deoplete.nvim')
    call dein#add('Shougo/deol.nvim')
-   call dein#add('Shougo/neosnippet.vim')
-   call dein#add('Shougo/neosnippet-snippets')
+   call dein#add('Shougo/defx.nvim')
+   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
    call dein#add('prabirshrestha/vim-lsp')
    call dein#add('mattn/vim-lsp-settings')
    call dein#add('mattn/vim-lsp-icons')
+   call dein#add('mattn/vim-sonictemplate')
    call dein#add('lighttiger2505/deoplete-vim-lsp')
-   call dein#add('Shougo/defx.nvim')
-   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
    call dein#add('Yggdroot/indentLine')
    call dein#add('kristijanhusak/defx-icons')
    call dein#add('bronson/vim-trailing-whitespace')
@@ -169,9 +168,6 @@ command UpdatePlugin call dein#update()
 " vim-json
 let g:vim_json_syntax_conceal = 0
 
-" asyncomplete
-let g:asyncomplete_auto_popup = 1
-
 " markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
 let g:vim_markdown_folding_disabled=1
@@ -193,12 +189,12 @@ let g:lsp_signs_warning = {'text': '▲'}
    nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
 " asyncomplete-file
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
+"au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+"    \ 'name': 'file',
+"    \ 'whitelist': ['*'],
+"    \ 'priority': 10,
+"    \ 'completor': function('asyncomplete#sources#file#completor')
+"    \ }))
 
 " }}}
 
@@ -323,33 +319,17 @@ call defx#custom#option('_', {
       \ 'columns': 'indent:icons:filename:mark',
       \ })
 
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-
 " deol.nvim
 let g:deol#shell_history_path = '~/.local/share/fish/fish_history'
 nnoremap df :Deol -split=floating<CR>
 nnoremap dv :Deol -split=vertical<CR>
 nnoremap ds :Deol -split=horizontal<CR>
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
+" dotvscode
 set runtimepath+=~/go/src/github.com/higashi000/vim-dotvscode
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" sonictempalte
+let g:sonictempalte_vim_template_dir = expand('/home/higashi/dotfiles/vim/template/')
