@@ -7,14 +7,16 @@ if &compatible
   set nocompatible
 endif
 
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('/home/higashi/.cache/dein')
-   call dein#begin('~/.cache/dein')
+   call dein#begin('/home/higashi/.cache/dein')
 
-   call dein#add('Shougo/dein.vim')
+   call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim')
    call dein#add('Shougo/denite.nvim')
    call dein#add('Shougo/deoplete.nvim')
+   call dein#add('Shougo/deoppet.nvim')
+   call dein#add('Shougo/neosnippet-snippets')
    call dein#add('Shougo/deol.nvim')
    call dein#add('Shougo/defx.nvim')
    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
@@ -30,8 +32,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('vim-airline/vim-airline-themes')
    call dein#add('osyo-manga/vim-anzu')
    call dein#add('elzr/vim-json')
-   call dein#add('cohama/lexima.vim')
-   call dein#add('liuchengxu/vim-clap')
+   call dein#add('mattn/vim-lexiv')
    call dein#add('lambdalisue/gina.vim')
    call dein#add('rbtnn/vim-mrw')
    call dein#add('cocopon/iceberg.vim')
@@ -53,11 +54,11 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('pechorin/any-jump.vim')
    call dein#add('lambdalisue/readablefold.vim')
    call dein#add('lambdalisue/vim-backslash')
-   call dein#add('pocke/keycast.vim')
-   call dein#add('pocke/vanner')
    call dein#add('higashi000/vimvimsemi')
    call dein#add('leafgarland/typescript-vim')
    call dein#add('peitalin/vim-jsx-typescript')
+   call dein#add('mbbill/undotree')
+   call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
 
    if !has('nvim')
       call dein#add('roxma/nvim-yarp')
@@ -74,13 +75,16 @@ if dein#tap('vital.vim')
   let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
 endif
 
+filetype plugin indent on
+syntax enable
+
 if dein#check_install()
   call dein#install()
 endif
 " }}}
 
 " colorscheme---{{{
-syntax enable
+"syntax enable
 colorscheme iceberg
 set background=dark
 "}}}
@@ -113,6 +117,12 @@ set cursorcolumn
 set foldmethod=marker
 
 set tabline=2
+
+" undo
+if has("persistent_undo")
+    set undodir=~/.undodir
+    set undofile
+endif
 
 " enable backspace
 set backspace=indent,eol,start
@@ -172,6 +182,7 @@ let g:vim_json_syntax_conceal = 0
 nnoremap <silent> <C-p> :PrevimOpen<CR>
 let g:vim_markdown_folding_disabled=1
 let g:previm_enable_realtime=1
+let g:previm_open_cmd = 'google-chrome'
 
 " vim-lsp Document Diagnostics
 let g:lsp_signs_error = {'text': '❎'}
@@ -325,11 +336,37 @@ nnoremap df :Deol -split=floating<CR>
 nnoremap dv :Deol -split=vertical<CR>
 nnoremap ds :Deol -split=horizontal<CR>
 
-" dotvscode
-set runtimepath+=~/go/src/github.com/higashi000/vim-dotvscode
-
 " deoplete
 let g:deoplete#enable_at_startup = 1
 
 " sonictempalte
-let g:sonictempalte_vim_template_dir = expand('/home/higashi/dotfiles/vim/template/')
+let g:sonictemplate_vim_template_dir = expand('/home/higashi/dotfiles/vim/template/')
+
+" In development plugins
+set runtimepath+=~/go/src/github.com/higashi000/vim-dotvscode
+set runtimepath+=~/go/src/github.com/higashi000/deoplete-sonictemplate
+set runtimepath+=~/go/src/github.com/higashi000/noachat.nvim
+
+" Deoppet
+call deoppet#initialize()
+call deoppet#custom#option('snippets_dirs',
+\ globpath(&runtimepath, 'neosnippets', 1, 1))
+
+imap <C-k>  <Plug>(deoppet_expand)
+imap <C-f>  <Plug>(deoppet_jump_forward)
+imap <C-b>  <Plug>(deoppet_jump_backward)
+smap <C-f>  <Plug>(deoppet_jump_forward)
+smap <C-b>  <Plug>(deoppet_jump_backward)
+
+
+autocmd FileType noachat call s:noachat_settings()
+let g:noachat#UserName = 'higashi'
+let g:noachat#https = v:true
+let g:noachat#ServerURL = 'noa.higashi.dev'
+function! s:noachat_settings() abort
+    map <silent> ns <PLug>(noachat_start)
+    map <silent> nl <Plug>(noachat_leave)
+endfunction
+
+" undotree
+nnoremap <C-u> :UndotreeToggle<CR>
