@@ -59,6 +59,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('peitalin/vim-jsx-typescript')
    call dein#add('mbbill/undotree')
    call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
+   call dein#add('lambdalisue/vim-findent')
 
    if !has('nvim')
       call dein#add('roxma/nvim-yarp')
