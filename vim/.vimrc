@@ -191,23 +191,21 @@ let g:lsp_signs_warning = {'text': '▲'}
 
 " complement setting {{{
 " vim-lsp command
-   nnoremap <silent> <Leader>d :LspDefinition<CR>
-   nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
-   nnoremap <silent> <Leader>h :LspHover<CR>
-   nnoremap <silent> <Leader>r :LspRename<CR>
-   nnoremap <silent> <Leader>a :LspCodeAction<CR>
-   nnoremap <silent> <Leader>ne :LspNextError<CR>
-   nnoremap <silent> <Leader>pe :LspPreviousError<CR>
-   nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+nnoremap <silent> <Leader>d :LspDefinition<CR>
+nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
+nnoremap <silent> <Leader>h :LspHover<CR>
+nnoremap <silent> <Leader>r :LspRename<CR>
+nnoremap <silent> <Leader>a :LspCodeAction<CR>
+nnoremap <silent> <Leader>ne :LspNextError<CR>
+nnoremap <silent> <Leader>pe :LspPreviousError<CR>
+nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
-" asyncomplete-file
-"au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-"    \ 'name': 'file',
-"    \ 'whitelist': ['*'],
-"    \ 'priority': 10,
-"    \ 'completor': function('asyncomplete#sources#file#completor')
-"    \ }))
-
+let g:lsp_settings = {
+            \ 'efm-langserver': {
+            \    'disabled': 0,
+            \    'allowlist': ['markdown'],
+            \ }
+        \ }
 " }}}
 
 " airline {{{
@@ -371,3 +369,6 @@ endfunction
 
 " undotree
 nnoremap <C-u> :UndotreeToggle<CR>
+
+let g:lsp_documentation_float = 0
+"let g:lsp_preview_keep_focus = 0
