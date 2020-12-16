@@ -60,6 +60,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('mbbill/undotree')
    call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
    call dein#add('lambdalisue/vim-findent')
+   call dein#add('ujihisa/neco-look')
 
    if !has('nvim')
       call dein#add('roxma/nvim-yarp')
@@ -128,9 +129,7 @@ endif
 " enable backspace
 set backspace=indent,eol,start
 
-" vim-jp/vimdoc-ja
-set helplang=ja,en
-
+" vim-jp/vimdoc-ja set helplang=ja,en
 "clipboard
 set clipboard^=unnamedplus
 
@@ -348,15 +347,15 @@ set runtimepath+=~/go/src/github.com/higashi000/noachat.nvim
 
 " Deoppet
 call deoppet#initialize()
-call deoppet#custom#option('snippets_dirs',
-\ globpath(&runtimepath, 'neosnippets', 1, 1))
+call deoppet#custom#option('snippets',
+\ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+\     "{ 'path': v:val }"))
 
 imap <C-k>  <Plug>(deoppet_expand)
 imap <C-f>  <Plug>(deoppet_jump_forward)
 imap <C-b>  <Plug>(deoppet_jump_backward)
 smap <C-f>  <Plug>(deoppet_jump_forward)
 smap <C-b>  <Plug>(deoppet_jump_backward)
-
 
 autocmd FileType noachat call s:noachat_settings()
 let g:noachat#UserName = 'higashi'
