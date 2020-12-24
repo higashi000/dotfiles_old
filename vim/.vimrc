@@ -61,7 +61,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
    call dein#add('lambdalisue/vim-findent')
    call dein#add('ujihisa/neco-look')
-   call dein#add('nvim-treesitter/nvim-treesitter', {'build': ':TSUpdaste'})
 
    if !has('nvim')
       call dein#add('roxma/nvim-yarp')
@@ -338,9 +337,6 @@ nnoremap ds :Deol -split=horizontal<CR>
 " deoplete
 let g:deoplete#enable_at_startup = 1
 
-" sonictempalte
-let g:sonictemplate_vim_template_dir = expand('/home/higashi/dotfiles/vim/template/')
-
 " In development plugins
 set runtimepath+=~/go/src/github.com/higashi000/vim-dotvscode
 set runtimepath+=~/go/src/github.com/higashi000/deoplete-sonictemplate
@@ -371,15 +367,3 @@ endfunction
 nnoremap <C-u> :UndotreeToggle<CR>
 
 let g:lsp_documentation_float = 0
-"let g:lsp_preview_keep_focus = 0
-"
-" treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {  },  -- list of language that will be disabled
-  },
-}
-EOF
