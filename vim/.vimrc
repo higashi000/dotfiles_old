@@ -61,10 +61,12 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
    call dein#add('lambdalisue/vim-findent')
    call dein#add('ujihisa/neco-look')
+   call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+   call dein#add('yuki-ycino/fzf-preview.vim', { 'rev': 'release' })
 
    if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
+       call dein#add('roxma/nvim-yarp')
+       call dein#add('roxma/vim-hug-neovim-rpc')
    endif
 
    call dein#end()
@@ -74,14 +76,14 @@ endif
 "call dein#check_update(v:true)
 
 if dein#tap('vital.vim')
-  let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
+    let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
 endif
 
 filetype plugin indent on
 syntax enable
 
 if dein#check_install()
-  call dein#install()
+    call dein#install()
 endif
 " }}}
 
@@ -100,13 +102,13 @@ set smarttab
 set cindent
 " if .py file open
 augroup PythonIndent
-  autocmd!
-  autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd!
+    autocmd FileType python set tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 
 augroup Stpl
-  autocmd!
-  autocmd FileType stpl set noexpandtab
+    autocmd!
+    autocmd FileType stpl set noexpandtab
 augroup END
 " }}}
 
@@ -204,7 +206,7 @@ let g:lsp_settings = {
             \    'disabled': 0,
             \    'allowlist': ['markdown'],
             \ }
-        \ }
+            \ }
 " }}}
 
 " airline {{{
@@ -234,99 +236,99 @@ let g:echodoc#enable_at_startup = 1
 " QuickRun
 noremap <silent> <Leader>q :QuickRun<CR>
 let g:quickrun_config = {
-      \     "_": {
-      \        "runner": "vimproc",
-      \     },
-      \  }
+            \     "_": {
+            \        "runner": "vimproc",
+            \     },
+            \  }
 
 " denite mappings
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
+    nnoremap <silent><buffer><expr> <CR>
+                \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> d
+                \ denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> p
+                \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+                \ denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> <Space>
+                \ denite#do_map('toggle_select').'j'
 endfunction
 autocmd FileType defx call s:defx_my_settings()
 
 function! s:defx_my_settings() abort
-   " Define mappings
-   nnoremap <silent><buffer><expr> <CR>
-   \ defx#do_action('drop')
-   nnoremap <silent><buffer><expr> c
-   \ defx#do_action('copy')
-   nnoremap <silent><buffer><expr> p
-   \ defx#do_action('paste')
-   nnoremap <silent><buffer><expr> l
-   \ defx#do_action('drop')
-   nnoremap <silent><buffer><expr> v
-   \ defx#do_action('open', 'vsplit')
-   nnoremap <silent><buffer><expr> t
-   \ defx#do_action('open_tree', 'toggle')
-   nnoremap <silent><buffer><expr> P
-   \ defx#do_action('preview')
-   nnoremap <silent><buffer><expr> ND
-   \ defx#do_action('new_directory')
-   nnoremap <silent><buffer><expr> NF
-   \ defx#do_action('new_file')
-   nnoremap <silent><buffer><expr> C
-   \ defx#do_action('toggle_columns',
-         \                'mark:indent:icon:filename:type:size:time')
-   nnoremap <silent><buffer><expr> S
-   \ defx#do_action('toggle_sort', 'time')
-   nnoremap <silent><buffer><expr> d
-   \ defx#do_action('remove')
-   nnoremap <silent><buffer><expr> r
-   \ defx#do_action('rename')
-   nnoremap <silent><buffer><expr> !
-   \ defx#do_action('execute_command')
-   nnoremap <silent><buffer><expr> x
-   \ defx#do_action('execute_system')
-   nnoremap <silent><buffer><expr> yy
-   \ defx#do_action('yank_path')
-   nnoremap <silent><buffer><expr> .
-   \ defx#do_action('toggle_ignored_files')
-   nnoremap <silent><buffer><expr> ;
-   \ defx#do_action('repeat')
-   nnoremap <silent><buffer><expr> h
-   \ defx#do_action('cd', ['..'])
-   nnoremap <silent><buffer><expr> ~
-   \ defx#do_action('cd')
-   nnoremap <silent><buffer><expr> q
-   \ defx#do_action('quit')
-   nnoremap <silent><buffer><expr> <Space>
-   \ defx#do_action('toggle_select') . 'j'
-   nnoremap <silent><buffer><expr> *
-   \ defx#do_action('toggle_select_all')
-   nnoremap <silent><buffer><expr> j
-   \ line('.') == line('$') ? 'gg' : 'j'
-   nnoremap <silent><buffer><expr> k
-   \ line('.') == 1 ? 'G' : 'k'
-   nnoremap <silent><buffer><expr> <C-l>
-   \ defx#do_action('redraw')
-   nnoremap <silent><buffer><expr> <C-g>
-   \ defx#do_action('print')
-   nnoremap <silent><buffer><expr> cd
-   \ defx#do_action('change_vim_cwd')
+    " Define mappings
+    nnoremap <silent><buffer><expr> <CR>
+                \ defx#do_action('drop')
+    nnoremap <silent><buffer><expr> c
+                \ defx#do_action('copy')
+    nnoremap <silent><buffer><expr> p
+                \ defx#do_action('paste')
+    nnoremap <silent><buffer><expr> l
+                \ defx#do_action('drop')
+    nnoremap <silent><buffer><expr> v
+                \ defx#do_action('open', 'vsplit')
+    nnoremap <silent><buffer><expr> t
+                \ defx#do_action('open_tree', 'toggle')
+    nnoremap <silent><buffer><expr> P
+                \ defx#do_action('preview')
+    nnoremap <silent><buffer><expr> ND
+                \ defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> NF
+                \ defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> C
+                \ defx#do_action('toggle_columns',
+                \                'mark:indent:icon:filename:type:size:time')
+    nnoremap <silent><buffer><expr> S
+                \ defx#do_action('toggle_sort', 'time')
+    nnoremap <silent><buffer><expr> d
+                \ defx#do_action('remove')
+    nnoremap <silent><buffer><expr> r
+                \ defx#do_action('rename')
+    nnoremap <silent><buffer><expr> !
+                \ defx#do_action('execute_command')
+    nnoremap <silent><buffer><expr> x
+                \ defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> yy
+                \ defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> .
+                \ defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> ;
+                \ defx#do_action('repeat')
+    nnoremap <silent><buffer><expr> h
+                \ defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> ~
+                \ defx#do_action('cd')
+    nnoremap <silent><buffer><expr> q
+                \ defx#do_action('quit')
+    nnoremap <silent><buffer><expr> <Space>
+                \ defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> *
+                \ defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> j
+                \ line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k
+                \ line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> <C-l>
+                \ defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g>
+                \ defx#do_action('print')
+    nnoremap <silent><buffer><expr> cd
+                \ defx#do_action('change_vim_cwd')
 endfunction
 noremap <silent> <C-n> :Defx<CR>
 
 call defx#custom#option('_', {
-      \ 'winwidth': 40,
-      \ 'split': 'vertical',
-      \ 'direction': 'topleft',
-      \ 'show_ignored_files': 0,
-      \ 'toggle': 1,
-      \ 'columns': 'indent:icons:filename:mark',
-      \ })
+            \ 'winwidth': 40,
+            \ 'split': 'vertical',
+            \ 'direction': 'topleft',
+            \ 'show_ignored_files': 0,
+            \ 'toggle': 1,
+            \ 'columns': 'indent:icons:filename:mark',
+            \ })
 
 " deol.nvim
 let g:deol#shell_history_path = '~/.local/share/fish/fish_history'
@@ -345,8 +347,8 @@ set runtimepath+=~/go/src/github.com/higashi000/noachat.nvim
 " Deoppet
 call deoppet#initialize()
 call deoppet#custom#option('snippets',
-\ map(globpath(&runtimepath, 'neosnippets', 1, 1),
-\     "{ 'path': v:val }"))
+            \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
+            \     "{ 'path': v:val }"))
 
 imap <C-k>  <Plug>(deoppet_expand)
 imap <C-f>  <Plug>(deoppet_jump_forward)
@@ -367,3 +369,4 @@ endfunction
 nnoremap <C-u> :UndotreeToggle<CR>
 
 let g:lsp_documentation_float = 0
+"let g:lsp_preview_keep_focus = 0
