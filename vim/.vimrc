@@ -17,16 +17,14 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim', {'lazy': 0})
    call dein#add('Shougo/denite.nvim', {'lazy': 0})
    call dein#add('Shougo/deoplete.nvim', {'lazy': 0})
+   call dein#add('higashi000/vim-acqua', {'lazy': 0})
    call dein#add('Shougo/deoppet.nvim', {'lazy': 0})
    call dein#add('Shougo/neosnippet-snippets', {'lazy': 1})
    call dein#add('Shougo/deol.nvim', {'lazy': 0})
    call dein#add('Shougo/defx.nvim', {'lazy': 0})
    call dein#add('Shougo/vimproc.vim', {'build' : 'make', 'lazy': 0})
-   call dein#add('prabirshrestha/vim-lsp', {'lazy': 0})
-   call dein#add('mattn/vim-lsp-settings', {'lazy': 0})
-   call dein#add('mattn/vim-lsp-icons', {'lazy': 0})
+   call dein#add('Shougo/neco-vim', {'lazy': 0, 'on_ft': 'vim'})
    call dein#add('mattn/vim-sonictemplate', {'lazy': 1})
-   call dein#add('lighttiger2505/deoplete-vim-lsp', {'lazy': 0})
    call dein#add('Yggdroot/indentLine', {'lazy': 1})
    call dein#add('kristijanhusak/defx-icons', {'lazy': 0})
    call dein#add('bronson/vim-trailing-whitespace', {'lazy': 1})
@@ -34,7 +32,6 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('vim-airline/vim-airline-themes', {'lazy': 0})
    call dein#add('osyo-manga/vim-anzu', {'lazy': 1})
    call dein#add('elzr/vim-json', {'lazy': 0})
-   call dein#add('mattn/vim-lexiv', {'lazy': 0})
    call dein#add('lambdalisue/gina.vim', {'lazy': 0})
    call dein#add('rbtnn/vim-mrw', {'lazy': 0})
    call dein#add('cocopon/iceberg.vim', {'lazy': 0})
@@ -60,6 +57,11 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('prettier/vim-prettier', {'build': 'yarn install', 'lazy': 0})
    call dein#add('lambdalisue/vim-findent', {'lazy': 1})
    call dein#add('ujihisa/neco-look', {'on_ft': ['text', 'markdown'], 'lazy': 1})
+   call dein#add('mattn/webapi-vim')
+   call dein#add('tyru/open-browser.vim')
+   call dein#add('neovim/nvim-lspconfig', {'lazy': 0})
+   call dein#add('deoplete-plugins/deoplete-lsp', {'lazy': 0})
+   call dein#add('nvim-treesitter/nvim-treesitter', {'build': ':TSUpdate'})
 
    if !has('nvim')
        call dein#add('roxma/nvim-yarp')
@@ -124,12 +126,14 @@ if has("persistent_undo")
     set undodir=~/.undodir
     set undofile
 endif
-
 " enable backspace
 set backspace=indent,eol,start
 
-" vim-jp/vimdoc-ja
+" vim-jp/vimdoc_ja
 set helplang=ja,en
+
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 "clipboard
 set clipboard^=unnamedplus
@@ -138,7 +142,7 @@ set clipboard^=unnamedplus
 augroup SpellCheck
     autocmd!
     autocmd FileType text setlocal spell spelllang=en_us spelloptions+=camel
-    autocmd FileType markdown setlocal spell spelllang=en_us spelloptions+=camel
+"    autocmd FileType markdown setlocal spell spelllang=en_us spelloptions+=camel
 augroup END
 
 " buffer move
@@ -187,14 +191,16 @@ let g:lsp_signs_warning = {'text': '▲'}
 
 " complement setting {{{
 " vim-lsp command
-nnoremap <silent> <Leader>d :LspDefinition<CR>
-nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
-nnoremap <silent> <Leader>h :LspHover<CR>
-nnoremap <silent> <Leader>r :LspRename<CR>
-nnoremap <silent> <Leader>a :LspCodeAction<CR>
-nnoremap <silent> <Leader>ne :LspNextError<CR>
-nnoremap <silent> <Leader>pe :LspPreviousError<CR>
-nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+"nnoremap <silent> <Leader>d :LspDefinition<CR>
+"nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
+"nnoremap <silent> <Leader>h :LspHover<CR>
+"nnoremap <silent> <Leader>r :LspRename<CR>
+"nnoremap <silent> <Leader>a :LspCodeAction<CR>
+"nnoremap <silent> <Leader>ne :LspNextError<CR>
+"nnoremap <silent> <Leader>pe :LspPreviousError<CR>
+"nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+
+let g:lsp_log_verbose = 0
 
 let g:lsp_settings = {
             \ 'efm-langserver': {
@@ -333,20 +339,6 @@ nnoremap ds :Deol -split=horizontal<CR>
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_complete', v:false)
-inoremap <silent><expr> <C-n>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<C-n>" :
-            \ deoplete#manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}} 
-
-" In development plugins
-"set runtimepath+=~/go/src/github.com/higashi000/vim-dotvscode
-"set runtimepath+=~/go/src/github.com/higashi000/deoplete-sonictemplate
-"set runtimepath+=~/go/src/github.com/higashi000/noachat.nvim
 
 " Deoppet
 call deoppet#initialize()
@@ -360,4 +352,41 @@ imap <C-b>  <Plug>(deoppet_jump_backward)
 smap <C-f>  <Plug>(deoppet_jump_forward)
 smap <C-b>  <Plug>(deoppet_jump_backward)
 
-let g:lsp_documentation_float = 0
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-spovimfy
+
+lua << EOF
+local lspconfig = require'lspconfig'
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ne', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>pe', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', '<space>td', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+end
+
+require'lspconfig'.gopls.setup{
+    on_attach = on_attach,
+    root_dir = lspconfig.util.root_pattern("*")
+}
+EOF
+
+set completeopt-=preview
+
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-kakkonan
+
+" treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
