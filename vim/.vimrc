@@ -372,8 +372,18 @@ local on_attach = function(client, bufnr)
 end
 
 require'lspconfig'.gopls.setup{
+    root_dir = lspconfig.util.root_pattern("*"),
     on_attach = on_attach,
-    root_dir = lspconfig.util.root_pattern("*")
+}
+
+require'lspconfig'.tsserver.setup{
+    root_dir = lspconfig.util.root_pattern("*"),
+    on_attach = on_attach,
+}
+
+require'lspconfig'.denols.setup{
+    root_dir = lspconfig.util.root_pattern("*"),
+    on_attach = on_attach,
 }
 EOF
 
