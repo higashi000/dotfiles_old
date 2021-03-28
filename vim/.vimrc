@@ -16,7 +16,6 @@ if dein#load_state('/home/higashi/.cache/dein')
 
    call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim', {'lazy': 0})
    call dein#add('Shougo/denite.nvim', {'lazy': 0})
-   call dein#add('Shougo/deoplete.nvim', {'lazy': 0})
    call dein#add('higashi000/vim-acqua', {'lazy': 0})
    call dein#add('Shougo/deoppet.nvim', {'lazy': 0})
    call dein#add('Shougo/neosnippet-snippets', {'lazy': 1})
@@ -24,6 +23,10 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('Shougo/defx.nvim', {'lazy': 0})
    call dein#add('Shougo/vimproc.vim', {'build' : 'make', 'lazy': 0})
    call dein#add('Shougo/neco-vim', {'lazy': 0, 'on_ft': 'vim'})
+   call dein#add('prabirshrestha/vim-lsp', {'lazy': 0})
+   call dein#add('prabirshrestha/asyncomplete.vim', {'lazy': 0})
+   call dein#add('prabirshrestha/asyncomplete-lsp.vim', {'lazy': 0})
+   call dein#add('mattn/vim-lsp-settings', {'lazy': 0})
    call dein#add('mattn/vim-sonictemplate', {'lazy': 1})
    call dein#add('Yggdroot/indentLine', {'lazy': 1})
    call dein#add('kristijanhusak/defx-icons', {'lazy': 0})
@@ -37,7 +40,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('cocopon/iceberg.vim', {'lazy': 0})
    call dein#add('cespare/vim-toml', {'on_ft': ['toml'], 'lazy': 0})
    call dein#add('vim-jp/vital.vim', {'lazy': 1})
-   call dein#add('tpope/vim-markdown', {'on_ft': ['markdown']})
+   call dein#add('tpope/vim-markdown', {'on_ft': ['markdown'], 'lazy': 0})
    call dein#add('kannokanno/previm', {'lazy': 1})
    call dein#add('rhysd/vim-clang-format', {'lazy': 1})
    call dein#add('ryanoasis/vim-devicons', {'lazy': 0})
@@ -59,9 +62,9 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('ujihisa/neco-look', {'on_ft': ['text', 'markdown'], 'lazy': 1})
    call dein#add('mattn/webapi-vim')
    call dein#add('tyru/open-browser.vim')
-   call dein#add('neovim/nvim-lspconfig', {'lazy': 0})
-   call dein#add('deoplete-plugins/deoplete-lsp', {'lazy': 0})
-   call dein#add('nvim-treesitter/nvim-treesitter', {'build': ':TSUpdate'})
+   call dein#add('vim-denops/denops.vim', {'lazy': 0})
+   call dein#add('vim-denops/denops-helloworld.vim', {'lazy': 0})
+   call dein#add('dart-lang/dart-vim-plugin', {'lazy': 0, 'on_ft': ['dart']})
 
    if !has('nvim')
        call dein#add('roxma/nvim-yarp')
@@ -191,14 +194,14 @@ let g:lsp_signs_warning = {'text': '▲'}
 
 " complement setting {{{
 " vim-lsp command
-"nnoremap <silent> <Leader>d :LspDefinition<CR>
-"nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
-"nnoremap <silent> <Leader>h :LspHover<CR>
-"nnoremap <silent> <Leader>r :LspRename<CR>
-"nnoremap <silent> <Leader>a :LspCodeAction<CR>
-"nnoremap <silent> <Leader>ne :LspNextError<CR>
-"nnoremap <silent> <Leader>pe :LspPreviousError<CR>
-"nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
+nnoremap <silent> <Leader>d :LspDefinition<CR>
+nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
+nnoremap <silent> <Leader>h :LspHover<CR>
+nnoremap <silent> <Leader>r :LspRename<CR>
+nnoremap <silent> <Leader>a :LspCodeAction<CR>
+nnoremap <silent> <Leader>ne :LspNextError<CR>
+nnoremap <silent> <Leader>pe :LspPreviousError<CR>
+nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
 let g:lsp_log_verbose = 0
 
@@ -352,51 +355,10 @@ imap <C-b>  <Plug>(deoppet_jump_backward)
 smap <C-f>  <Plug>(deoppet_jump_forward)
 smap <C-b>  <Plug>(deoppet_jump_backward)
 
-set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-spovimfy
-
-lua << EOF
-local lspconfig = require'lspconfig'
-
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ne', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>pe', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', '<space>td', '<Cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-end
-
-require'lspconfig'.gopls.setup{
-    root_dir = lspconfig.util.root_pattern("*"),
-    on_attach = on_attach,
-}
-
-require'lspconfig'.tsserver.setup{
-    root_dir = lspconfig.util.root_pattern("*"),
-    on_attach = on_attach,
-}
-
-require'lspconfig'.denols.setup{
-    root_dir = lspconfig.util.root_pattern("*"),
-    on_attach = on_attach,
-}
-EOF
-
 set completeopt-=preview
 
-set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-kakkonan
+"set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-denopspotify
 
-" treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-}
-EOF
+let g:denops#script#typecheck = 1
+
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
