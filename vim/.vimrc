@@ -24,8 +24,8 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('Shougo/vimproc.vim', {'build' : 'make', 'lazy': 0})
    call dein#add('Shougo/neco-vim', {'lazy': 0, 'on_ft': 'vim'})
    call dein#add('prabirshrestha/vim-lsp', {'lazy': 0})
-   call dein#add('prabirshrestha/asyncomplete.vim', {'lazy': 0})
-   call dein#add('prabirshrestha/asyncomplete-lsp.vim', {'lazy': 0})
+   call dein#add('Shougo/deoplete.nvim', {'lazy': 0})
+   call dein#add('lighttiger2505/deoplete-vim-lsp', {'lazy': 0})
    call dein#add('mattn/vim-lsp-settings', {'lazy': 0})
    call dein#add('mattn/vim-sonictemplate', {'lazy': 1})
    call dein#add('Yggdroot/indentLine', {'lazy': 1})
@@ -64,7 +64,10 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('tyru/open-browser.vim')
    call dein#add('vim-denops/denops.vim', {'lazy': 0})
    call dein#add('vim-denops/denops-helloworld.vim', {'lazy': 0})
+   call dein#add('higashi000/dps-loadfilesample', {'lazy': 0})
    call dein#add('dart-lang/dart-vim-plugin', {'lazy': 0, 'on_ft': ['dart']})
+   call dein#add('udalov/kotlin-vim', {'lazy': 0, 'on_ft': ['kotlin']})
+   call dein#add('lambdalisue/pastefix.vim', {'lazy': 0})
 
    if !has('nvim')
        call dein#add('roxma/nvim-yarp')
@@ -357,8 +360,9 @@ smap <C-b>  <Plug>(deoppet_jump_backward)
 
 set completeopt-=preview
 
-"set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-denopspotify
-
 let g:denops#script#typecheck = 1
 
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-androidbuilder
+
+let g:deoplete#enable_at_startup = 1
