@@ -27,7 +27,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('Shougo/deoplete.nvim', {'lazy': 0})
    call dein#add('lighttiger2505/deoplete-vim-lsp', {'lazy': 0})
    call dein#add('mattn/vim-lsp-settings', {'lazy': 0})
-   call dein#add('mattn/vim-sonictemplate', {'lazy': 1})
+   call dein#add('mattn/vim-sonictemplate', {'lazy': 0})
    call dein#add('Yggdroot/indentLine', {'lazy': 1})
    call dein#add('kristijanhusak/defx-icons', {'lazy': 0})
    call dein#add('bronson/vim-trailing-whitespace', {'lazy': 1})
@@ -44,7 +44,7 @@ if dein#load_state('/home/higashi/.cache/dein')
    call dein#add('kannokanno/previm', {'lazy': 1})
    call dein#add('rhysd/vim-clang-format', {'lazy': 1})
    call dein#add('ryanoasis/vim-devicons', {'lazy': 0})
-   call dein#add('mattn/emmet-vim', {'lazy': 1})
+   call dein#add('mattn/emmet-vim', {'lazy': 0, 'on_ft': ['html', 'smarty']})
    call dein#add('airblade/vim-gitgutter', {'lazy': 1})
    call dein#add('vim-jp/autofmt', {'lazy': 1})
    call dein#add('mattn/vim-goimports', {'lazy': 0})
@@ -360,9 +360,12 @@ smap <C-b>  <Plug>(deoppet_jump_backward)
 
 set completeopt-=preview
 
+"set runtimepath+=/home/higashi/go/src/github.com/higashi000/vim-denopspotify
+
 let g:denops#script#typecheck = 1
 
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-androidbuilder
+""set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-loadfilesample
 
 let g:deoplete#enable_at_startup = 1
