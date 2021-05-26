@@ -365,6 +365,19 @@ set completeopt-=preview
 let g:denops#script#typecheck = 1
 
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
+vmap ( <Plug>(dps_kakkonan_surround_parenthesis)
+vmap { <Plug>(dps_kakkonan_surround_curly)
+vmap [ <Plug>(dps_kakkonan_surround_square)
+vmap " <Plug>(dps_kakkonan_surround_doublequote)
+vmap ' <Plug>(dps_kakkonan_surround_singlequote)
+vmap ` <Plug>(dps_kakkonan_surround_backquote)
+map rp( <Plug>(dps_kakkonan_replace_parenthesis)
+map rp{ <Plug>(dps_kakkonan_replace_curly)
+map rp[ <Plug>(dps_kakkonan_replace_square)
+map rp" <Plug>(dps_kakkonan_replace_doublequote)
+map rp' <Plug>(dps_kakkonan_replace_singlequote)
+map rp` <Plug>(dps_kakkonan_replace_backquote)
+
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-androidbuilder
 ""set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-loadfilesample
 
