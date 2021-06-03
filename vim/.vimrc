@@ -6,76 +6,76 @@ source ~/.github_token.vim
 
 " dein.vim --- {{{
 if &compatible
-  set nocompatible
+    set nocompatible
 endif
 
 set runtimepath+=/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('/home/higashi/.cache/dein')
-   call dein#begin('/home/higashi/.cache/dein')
+    call dein#begin('/home/higashi/.cache/dein')
 
-   call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim')
-   call dein#add('Shougo/denite.nvim')
-   call dein#add('higashi000/vim-acqua')
-   call dein#add('Shougo/deoppet.nvim')
-   call dein#add('Shougo/neosnippet-snippets')
-   call dein#add('Shougo/deol.nvim')
-   call dein#add('Shougo/defx.nvim')
-   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-   call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
-   call dein#add('prabirshrestha/vim-lsp')
-   call dein#add('Shougo/deoplete.nvim')
-   call dein#add('lighttiger2505/deoplete-vim-lsp')
-   call dein#add('mattn/vim-lsp-settings')
-   call dein#add('mattn/vim-sonictemplate')
-   call dein#add('Yggdroot/indentLine')
-   call dein#add('kristijanhusak/defx-icons')
-   call dein#add('bronson/vim-trailing-whitespace')
-   call dein#add('vim-airline/vim-airline')
-   call dein#add('vim-airline/vim-airline-themes')
-   call dein#add('osyo-manga/vim-anzu')
-   call dein#add('elzr/vim-json')
-   call dein#add('lambdalisue/gina.vim')
-   call dein#add('rbtnn/vim-mrw')
-   call dein#add('cocopon/iceberg.vim')
-   call dein#add('cespare/vim-toml', {'on_ft': ['toml']})
-   call dein#add('vim-jp/vital.vim')
-   call dein#add('tpope/vim-markdown', {'on_ft': ['markdown']})
-   call dein#add('kannokanno/previm')
-   call dein#add('rhysd/vim-clang-format')
-   call dein#add('ryanoasis/vim-devicons')
-   call dein#add('mattn/emmet-vim', {'on_ft': ['html', 'smarty']})
-   call dein#add('airblade/vim-gitgutter')
-   call dein#add('vim-jp/autofmt')
-   call dein#add('mattn/vim-goimports')
-   call dein#add('easymotion/vim-easymotion')
-   call dein#add('thinca/vim-quickrun')
-   call dein#add('vim-jp/vimdoc-ja')
-   call dein#add('pechorin/any-jump.vim')
-   call dein#add('lambdalisue/readablefold.vim')
-   call dein#add('lambdalisue/vim-backslash', {'on_ft': ['vim']})
-   call dein#add('higashi000/vimvimsemi')
-   call dein#add('leafgarland/typescript-vim', {'on_ft': ['typescript']})
-   call dein#add('peitalin/vim-jsx-typescript', {'on_ft': ['typescriptreact']})
-   call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
-   call dein#add('lambdalisue/vim-findent')
-   call dein#add('ujihisa/neco-look', {'on_ft': ['text', 'markdown']})
-   call dein#add('mattn/webapi-vim')
-   call dein#add('tyru/open-browser.vim')
-   call dein#add('vim-denops/denops.vim')
-   call dein#add('vim-denops/denops-helloworld.vim')
-   call dein#add('higashi000/dps-loadfilesample')
-   call dein#add('dart-lang/dart-vim-plugin', {'on_ft': ['dart']})
-   call dein#add('udalov/kotlin-vim', {'on_ft': ['kotlin']})
-   call dein#add('lambdalisue/pastefix.vim')
+    call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim')
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('higashi000/vim-acqua')
+    call dein#add('Shougo/deoppet.nvim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/deol.nvim')
+    call dein#add('Shougo/defx.nvim')
+    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+    call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
+    call dein#add('prabirshrestha/vim-lsp')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('lighttiger2505/deoplete-vim-lsp')
+    call dein#add('mattn/vim-lsp-settings')
+    call dein#add('mattn/vim-sonictemplate')
+    call dein#add('Yggdroot/indentLine')
+    call dein#add('kristijanhusak/defx-icons')
+    call dein#add('bronson/vim-trailing-whitespace')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+    call dein#add('elzr/vim-json')
+    call dein#add('lambdalisue/gina.vim')
+    call dein#add('rbtnn/vim-mrw')
+    call dein#add('cocopon/iceberg.vim')
+    call dein#add('cespare/vim-toml', {'on_ft': ['toml']})
+    call dein#add('vim-jp/vital.vim')
+    call dein#add('tpope/vim-markdown', {'on_ft': ['markdown']})
+    call dein#add('kannokanno/previm')
+    call dein#add('rhysd/vim-clang-format')
+    call dein#add('ryanoasis/vim-devicons')
+    call dein#add('mattn/emmet-vim', {'on_ft': ['html', 'smarty']})
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('vim-jp/autofmt')
+    call dein#add('mattn/vim-goimports')
+    call dein#add('easymotion/vim-easymotion')
+    call dein#add('thinca/vim-quickrun')
+    call dein#add('vim-jp/vimdoc-ja')
+    call dein#add('pechorin/any-jump.vim')
+    call dein#add('lambdalisue/readablefold.vim')
+    call dein#add('lambdalisue/vim-backslash', {'on_ft': ['vim']})
+    call dein#add('higashi000/vimvimsemi')
+    call dein#add('leafgarland/typescript-vim', {'on_ft': ['typescript']})
+    call dein#add('peitalin/vim-jsx-typescript', {'on_ft': ['typescriptreact']})
+    call dein#add('prettier/vim-prettier', {'build': 'yarn install'})
+    call dein#add('lambdalisue/vim-findent')
+    call dein#add('ujihisa/neco-look', {'on_ft': ['text', 'markdown']})
+    call dein#add('mattn/webapi-vim')
+    call dein#add('tyru/open-browser.vim')
+    call dein#add('vim-denops/denops.vim')
+    call dein#add('vim-denops/denops-helloworld.vim')
+    call dein#add('higashi000/dps-loadfilesample')
+    call dein#add('dart-lang/dart-vim-plugin', {'on_ft': ['dart']})
+    call dein#add('udalov/kotlin-vim', {'on_ft': ['kotlin']})
+    call dein#add('lambdalisue/pastefix.vim')
 
-   if !has('nvim')
-       call dein#add('roxma/nvim-yarp')
-       call dein#add('roxma/vim-hug-neovim-rpc')
-   endif
+    if !has('nvim')
+        call dein#add('roxma/nvim-yarp')
+        call dein#add('roxma/vim-hug-neovim-rpc')
+        call dein#add('osyo-manga/vim-anzu')
+    endif
 
-   call dein#end()
-   call dein#save_state()
+    call dein#end()
+    call dein#save_state()
 endif
 
 command DeinUpdate :call dein#check_update(v:true)
@@ -148,7 +148,7 @@ set clipboard^=unnamedplus
 augroup SpellCheck
     autocmd!
     autocmd FileType text setlocal spell spelllang=en_us spelloptions+=camel
-"    autocmd FileType markdown setlocal spell spelllang=en_us spelloptions+=camel
+    "    autocmd FileType markdown setlocal spell spelllang=en_us spelloptions+=camel
 augroup END
 
 " buffer move
@@ -223,10 +223,16 @@ let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 " anzu {{{
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
+if !has(nvim)
+    nmap n <Plug>(anzu-n-with-echo)
+    nmap N <Plug>(anzu-N-with-echo)
+    nmap * <Plug>(anzu-star)
+    nmap # <Plug>(anzu-sharp)
+
+    nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+    set statusline=%{anzu#search_status()}
+endif
 " }}}
 
 " emmet-vim
@@ -365,6 +371,7 @@ set completeopt-=preview
 let g:denops#script#typecheck = 1
 
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
+
 vmap ( <Plug>(dps_kakkonan_surround_parenthesis)
 vmap { <Plug>(dps_kakkonan_surround_curly)
 vmap [ <Plug>(dps_kakkonan_surround_square)
