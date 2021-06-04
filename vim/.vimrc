@@ -223,7 +223,7 @@ let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 " anzu {{{
-if !has(nvim)
+if !has('nvim')
     nmap n <Plug>(anzu-n-with-echo)
     nmap N <Plug>(anzu-N-with-echo)
     nmap * <Plug>(anzu-star)
