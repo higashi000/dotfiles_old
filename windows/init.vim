@@ -24,7 +24,6 @@ Plug 'lambdalisue/gina.vim'
 Plug 'rbtnn/vim-mrw'
 Plug 'cocopon/iceberg.vim'
 Plug 'cespare/vim-toml'
-Plug 'vim-jp/vital.vim'
 Plug 'tpope/vim-markdown'
 Plug 'kannokanno/previm'
 Plug 'rhysd/vim-clang-format'
@@ -55,9 +54,9 @@ set background=dark
 "}}}
 
 " indent setting {{{
-set shiftwidth=3
-set tabstop=3
-set softtabstop=3
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 set expandtab
 set smarttab
 set cindent
@@ -172,9 +171,6 @@ nnoremap <Up>    :resize -1<CR>
 nnoremap <Down>  :resize +1<CR>
 " }}}
 
-" plugin update command
-command UpdatePlugin call dein#update()
-
 " vim-json
 let g:vim_json_syntax_conceal = 0
 
@@ -185,10 +181,6 @@ let g:asyncomplete_auto_popup = 1
 nnoremap <silent> <C-p> :PrevimOpen<CR>
 let g:vim_markdown_folding_disabled=1
 let g:previm_enable_realtime=1
-
-" vim-lsp Document Diagnostics
-let g:lsp_signs_error = {'text': '¿'}
-let g:lsp_signs_warning = {'text': '¿'}
 
 " complement setting {{{
 " vim-lsp command
