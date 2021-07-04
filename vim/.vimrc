@@ -220,10 +220,16 @@ let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 " anzu {{{
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
+if !has('nvim')
+    nmap n <Plug>(anzu-n-with-echo)
+    nmap N <Plug>(anzu-N-with-echo)
+    nmap * <Plug>(anzu-star)
+    nmap # <Plug>(anzu-sharp)
+
+    nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+    set statusline=%{anzu#search_status()}
+endif
 " }}}
 
 " emmet-vim
@@ -360,13 +366,6 @@ set completeopt-=preview
 let g:denops#script#typecheck = 1
 
 set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
-map rp( <Plug>(dps_kakkonan_replace_parenthesis)
-map rp{ <Plug>(dps_kakkonan_replace_curly)
-map rp[ <Plug>(dps_kakkonan_replace_square)
-map rp" <Plug>(dps_kakkonan_replace_doublequote)
-map rp' <Plug>(dps_kakkonan_replace_singlequote)
-map rp` <Plug>(dps_kakkonan_replace_backquote)
-
 vmap ( <Plug>(dps_kakkonan_surround_parenthesis)
 vmap { <Plug>(dps_kakkonan_surround_curly)
 vmap [ <Plug>(dps_kakkonan_surround_square)
@@ -389,3 +388,11 @@ let g:kakkonan_custom_brackets = {
                         \ },
                         \ }
 
+map rp( <Plug>(dps_kakkonan_replace_parenthesis)
+map rp{ <Plug>(dps_kakkonan_replace_curly)
+map rp[ <Plug>(dps_kakkonan_replace_square)
+map rp" <Plug>(dps_kakkonan_replace_doublequote)
+map rp' <Plug>(dps_kakkonan_replace_singlequote)
+map rp` <Plug>(dps_kakkonan_replace_backquote)
+
+set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-androidbuilder
