@@ -203,3 +203,4 @@ map rp' <Plug>(dps_kakkonan_replace_singlequote)
 map rp` <Plug>(dps_kakkonan_replace_backquote)
 
 set guifont=Cica:h11:cANSI:qDRAFT
+let g:extra_whitespace_ignored_filetypes = ['defx']
