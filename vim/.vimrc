@@ -2,7 +2,6 @@ set fileencoding=utf-8 fileformat=unix
 
 set number
 
-source ~/.github_token.vim
 
 " dein.vim --- {{{
 if &compatible
@@ -15,17 +14,19 @@ call dein#begin('/home/higashi/.cache/dein')
 
 call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
-call dein#add('higashi000/vim-acqua')
-call dein#add('Shougo/deoppet.nvim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/deol.nvim')
 call dein#add('Shougo/defx.nvim')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
-call dein#add('Shougo/deoplete.nvim', {'lazy': 0})
-"call dein#add('Shougo/ddc.vim')
-call dein#add('lighttiger2505/deoplete-vim-lsp', {'lazy': 0})
+""call dein#add('prabirshrestha/asyncomplete.vim')
+""call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+call dein#add('higashi000/dps-kakkonan')
 call dein#add('prabirshrestha/vim-lsp')
+call dein#add('Shougo/ddc.vim')
+call dein#add('shun/ddc-vim-lsp')
+call dein#add('Shougo/ddc-around')
+call dein#add('LumaKernel/ddc-file')
 call dein#add('mattn/vim-lsp-settings')
 call dein#add('mattn/vim-sonictemplate')
 call dein#add('Yggdroot/indentLine')
@@ -73,8 +74,6 @@ endif
 
 call dein#end()
 call dein#save_state()
-
-command DeinUpdate :call dein#check_update(v:true)
 
 if dein#tap('vital.vim')
     let g:vitalizer#vital_dir = dein#get('vital.vim').rtp
@@ -175,9 +174,6 @@ tnoremap <C-[> <C-\><C-n>
 " turn back
 noremap j gj
 noremap k gk
-
-nnoremap <Left>  :Gina diff<CR>
-nnoremap <Up>    :Gina status<CR>
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
@@ -349,18 +345,6 @@ nnoremap ds :Deol -split=horizontal<CR>
 " deoplete
 let g:deoplete#enable_at_startup = 1
 
-" Deoppet
-call deoppet#initialize()
-call deoppet#custom#option('snippets',
-            \ map(globpath(&runtimepath, 'neosnippets', 1, 1),
-            \     "{ 'path': v:val }"))
-
-imap <C-k>  <Plug>(deoppet_expand)
-imap <C-f>  <Plug>(deoppet_jump_forward)
-imap <C-b>  <Plug>(deoppet_jump_backward)
-smap <C-f>  <Plug>(deoppet_jump_forward)
-smap <C-b>  <Plug>(deoppet_jump_backward)
-
 set completeopt-=preview
 
 let g:denops#script#typecheck = 1
@@ -395,4 +379,46 @@ map rp" <Plug>(dps_kakkonan_replace_doublequote)
 map rp' <Plug>(dps_kakkonan_replace_singlequote)
 map rp` <Plug>(dps_kakkonan_replace_backquote)
 
-set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-androidbuilder
+lan en_US.utf8
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
+let g:dart_format_on_save=1
+
+call ddc#custom#patch_global('sources', ['ddc-vim-lsp', 'file', 'around'])
+
+call ddc#custom#patch_global('sourceOptions', {
+            \ 'ddc-vim-lsp': {
+                \ 'matchers': ['matcher_head'],
+                \ 'mark': 'L',
+                \ 'isVolatile': v:true,
+                \ 'forceCompletionPatttern': '\.',
+                \ 'minAutoCompleteLength': 0,
+                \ },
+            \ 'file': {
+                \ 'mark': 'F',
+                \ 'isVolatile': v:true,
+                \ 'forceCompletionPattern': '\S/\S*',
+                \ },
+            \ 'around': {
+                \ 'mark': 'A',
+                \ 'isVolatile': v:true,
+                \ },
+            \ })
+
+
+call ddc#custom#patch_filetype(
+    \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+    \ 'sourceOptions': {
+    \   'file': {
+    \     'forceCompletionPattern': '\S\\\S*',
+    \   },
+    \ },
+    \ 'sourceParams': {
+    \   'file': {
+    \     'mode': 'win32',
+    \   },
+    \ }})
+
+call ddc#enable()
