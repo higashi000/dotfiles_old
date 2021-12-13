@@ -2,7 +2,6 @@ set fileencoding=utf-8 fileformat=unix
 
 set number
 
-
 " dein.vim --- {{{
 if &compatible
     set nocompatible
@@ -15,26 +14,25 @@ call dein#begin('/home/higashi/.cache/dein')
 call dein#add('/home/higashi/.cache/dein/repos/github.com/Shougo/dein.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/deol.nvim')
 call dein#add('Shougo/defx.nvim')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
-""call dein#add('prabirshrestha/asyncomplete.vim')
-""call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-call dein#add('higashi000/dps-kakkonan')
+call dein#add('mattn/webapi-vim')
+call dein#add('Shougo/neco-vim')
+"call dein#add('prabirshrestha/asyncomplete.vim')
+"call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+"call dein#add('prabirshrestha/asyncomplete-file.vim')
 call dein#add('prabirshrestha/vim-lsp')
+call dein#add('mattn/vim-lsp-settings')
 call dein#add('Shougo/ddc.vim')
 call dein#add('shun/ddc-vim-lsp')
 call dein#add('Shougo/ddc-around')
+call dein#add('Shougo/ddc-matcher_head')
+call dein#add('Shougo/ddc-sorter_rank')
 call dein#add('LumaKernel/ddc-file')
-call dein#add('mattn/vim-lsp-settings')
 call dein#add('mattn/vim-sonictemplate')
 call dein#add('Yggdroot/indentLine')
 call dein#add('kristijanhusak/defx-icons')
-call dein#add('bronson/vim-trailing-whitespace')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
-call dein#add('osyo-manga/vim-anzu')
 call dein#add('elzr/vim-json')
 call dein#add('lambdalisue/gina.vim')
 call dein#add('rbtnn/vim-mrw')
@@ -54,6 +52,7 @@ call dein#add('thinca/vim-quickrun')
 call dein#add('vim-jp/vimdoc-ja')
 call dein#add('pechorin/any-jump.vim')
 call dein#add('lambdalisue/readablefold.vim')
+call dein#add('skanehira/gh.vim')
 call dein#add('lambdalisue/vim-backslash', {'on_ft': ['vim']})
 call dein#add('higashi000/vimvimsemi')
 call dein#add('leafgarland/typescript-vim', {'on_ft': ['typescript']})
@@ -68,6 +67,7 @@ call dein#add('dart-lang/dart-vim-plugin', {'on_ft': ['dart']})
 call dein#add('higashi000/dps-androidbuilder')
 
 if !has('nvim')
+    call dein#add('osyo-manga/vim-anzu')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
 endif
@@ -94,12 +94,13 @@ set background=dark
 "}}}
 
 " indent setting {{{
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 set expandtab
 set smarttab
 set cindent
+
 " if .py file open
 augroup PythonIndent
     autocmd!
@@ -112,84 +113,48 @@ augroup Stpl
 augroup END
 " }}}
 
-" highlight in search result
 set hlsearch
-" highlight in cursor line, col
 set cursorline
 set cursorcolumn
-" folding setting
 set foldmethod=marker
 
 set tabline=2
 
-" undo
-"if has("persistent_undo")
-"    set undodir=~/.undodir
-"    set undofile
-"endif
-
-" enable backspace
 set backspace=indent,eol,start
 
-" vim-jp/vimdoc_ja
 set helplang=ja,en
 
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-"clipboard
 set clipboard^=unnamedplus
 
-" spell check
-augroup SpellCheck
-    autocmd!
-    autocmd FileType text setlocal spell spelllang=en_us spelloptions+=camel
-    "    autocmd FileType markdown setlocal spell spelllang=en_us spelloptions+=camel
-augroup END
-
-" buffer move
 noremap <silent><C-x> :bdelete<CR>
 noremap <silent><C-h> :bprevious<CR>
 noremap <silent><C-l> :bnext<CR>
 
-" display cursor pos
 set ruler
-" error bell
 set noerrorbells
-" status line
 set laststatus=2
 
-" highlight cancel
 noremap <silent> <ESC><ESC> :noh<CR>
 
-" set leaderkey
 let mapleader = "\<Space>"
 
-" `;` to ':' in normal mode
 noremap ; :
 
-" escape terminal mode
 tnoremap <C-[> <C-\><C-n>
 
-" turn back
 noremap j gj
 noremap k gk
 
-" vim-json
 let g:vim_json_syntax_conceal = 0
 
-" markdown
 nnoremap <silent> <C-p> :PrevimOpen<CR>
 let g:vim_markdown_folding_disabled=1
 let g:previm_enable_realtime=1
 let g:previm_open_cmd = 'google-chrome'
 
-" vim-lsp Document Diagnostics
-let g:lsp_signs_error = {'text': '❎'}
-let g:lsp_signs_warning = {'text': '▲'}
-
-" complement setting {{{
-" vim-lsp command
 nnoremap <silent> <Leader>d :LspDefinition<CR>
 nnoremap <silent> <Leader>f :LspDocumentFormat<CR>
 nnoremap <silent> <Leader>h :LspHover<CR>
@@ -201,21 +166,10 @@ nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
 let g:lsp_log_verbose = 0
 
-let g:lsp_settings = {
-            \ 'efm-langserver': {
-                \    'disabled': 0,
-                \    'allowlist': ['markdown'],
-                \ }
-                \ }
-" }}}
-
-" airline {{{
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'iceberg'
 let g:airline#extensions#tabline#enabled = 1
-" }}}
 
-" anzu {{{
 if !has('nvim')
     nmap n <Plug>(anzu-n-with-echo)
     nmap N <Plug>(anzu-N-with-echo)
@@ -226,7 +180,6 @@ if !has('nvim')
 
     set statusline=%{anzu#search_status()}
 endif
-" }}}
 
 " emmet-vim
 let g:user_emmet_leader_key='<C-y>'
@@ -264,6 +217,9 @@ function! s:denite_my_settings() abort
                 \ denite#do_map('toggle_select').'j'
 endfunction
 autocmd FileType defx call s:defx_my_settings()
+
+noremap <silent> <Leader>df :Denite file/rec<CR>
+noremap <silent> <Leader>ds :DeniteProjectDir grep<CR>
 
 function! s:defx_my_settings() abort
     " Define mappings
@@ -336,20 +292,11 @@ call defx#custom#option('_', {
             \ 'columns': 'indent:icons:filename:mark',
             \ })
 
-" deol.nvim
-let g:deol#shell_history_path = '~/.local/share/fish/fish_history'
-nnoremap df :Deol -split=floating<CR>
-nnoremap dv :Deol -split=vertical<CR>
-nnoremap ds :Deol -split=horizontal<CR>
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-
 set completeopt-=preview
 
 let g:denops#script#typecheck = 1
 
-set runtimepath+=/home/higashi/go/src/github.com/higashi000/dps-kakkonan
+set runtimepath+=/home/higashi/ghq/github.com/higashi000/dps-kakkonan
 vmap ( <Plug>(dps_kakkonan_surround_parenthesis)
 vmap { <Plug>(dps_kakkonan_surround_curly)
 vmap [ <Plug>(dps_kakkonan_surround_square)
@@ -378,34 +325,37 @@ map rp[ <Plug>(dps_kakkonan_replace_square)
 map rp" <Plug>(dps_kakkonan_replace_doublequote)
 map rp' <Plug>(dps_kakkonan_replace_singlequote)
 map rp` <Plug>(dps_kakkonan_replace_backquote)
-
-lan en_US.utf8
+map <Leader>dk <Plug>(dps_kakkonan_delete_brackets)
 
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
 
 let g:dart_format_on_save=1
 
-call ddc#custom#patch_global('sources', ['ddc-vim-lsp', 'file', 'around'])
+call ddc#custom#patch_global('sources', ['vim-lsp', 'file', 'around'])
 
 call ddc#custom#patch_global('sourceOptions', {
+            \ '_': {
+                \ 'matchers': ['matcher_head'],
+                \ 'sorters': ['sorter_rank'],
+                \ },
             \ 'ddc-vim-lsp': {
                 \ 'matchers': ['matcher_head'],
                 \ 'mark': 'L',
                 \ 'isVolatile': v:true,
                 \ 'forceCompletionPatttern': '\.',
                 \ 'minAutoCompleteLength': 0,
-                \ },
+            \ },
             \ 'file': {
                 \ 'mark': 'F',
                 \ 'isVolatile': v:true,
                 \ 'forceCompletionPattern': '\S/\S*',
-                \ },
+            \ },
             \ 'around': {
                 \ 'mark': 'A',
                 \ 'isVolatile': v:true,
-                \ },
-            \ })
+            \ },
+        \ })
 
 
 call ddc#custom#patch_filetype(
@@ -422,3 +372,4 @@ call ddc#custom#patch_filetype(
     \ }})
 
 call ddc#enable()
+
