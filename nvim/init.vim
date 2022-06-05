@@ -108,6 +108,7 @@ set cursorcolumn
 set foldmethod=marker
 
 set tabline=4
+set showtabline=2
 
 set backspace=indent,eol,start
 
@@ -405,6 +406,11 @@ let g:lightline = {
         \ },
         \ }
 
+let g:lightline.enable = {
+      \ 'statusline': 1,
+      \ 'tabline': 1,
+      \ }
+
 function! LightLineModified()
   if &filetype == "help"
     return ""
@@ -460,4 +466,5 @@ function! MyFugitive()
   return 1000
 endfunction
 
-let g:denops_server_addr = '127.0.0.1:32123'
+let g:lightline.tabline_separator = g:lightline.separator
+let g:lightline.tabline_subseparator = g:lightline.subseparator
