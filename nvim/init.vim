@@ -27,7 +27,8 @@ call dein#add('Shougo/ddu-commands.vim')
 call dein#add('Shougo/ddu-source-line')
 call dein#add('Shougo/ddu-kind-file')
 call dein#add('Shougo/ddu-source-file')
-call dein#add('Shougo/defx.nvim')
+call dein#add('shun/ddu-source-buffer')
+""call dein#add('Shougo/defx.nvim')
 "call dein#add('kristijanhusak/defx-icons', {'on_func': 's:defx_my_settings'})
 call dein#add('mattn/vim-sonictemplate')
 call dein#add('lambdalisue/gin.vim')
@@ -39,11 +40,12 @@ call dein#add('cespare/vim-toml', {'on_ft': ['toml']})
 call dein#add('tpope/vim-markdown', {'on_ft': ['markdown']})
 call dein#add('kannokanno/previm', {'on_ft': ['markdown']})
 call dein#add('rhysd/vim-clang-format', {'on_ft': ['cpp', 'c']})
+call dein#add('keith/swift.vim', {'on_ft': ['swift']})
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('mattn/emmet-vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('vim-jp/autofmt', {'on_ft': ['txt']})
-call dein#add('mattn/vim-goimports', {'on_ft': ['go']})
+call dein#add('mattn/vim-goimports')
 call dein#add('easymotion/vim-easymotion')
 call dein#add('thinca/vim-quickrun')
 call dein#add('vim-jp/vimdoc-ja')
@@ -59,6 +61,7 @@ call dein#add('dart-lang/dart-vim-plugin', {'on_ft': ['dart']})
 call dein#add('higashi000/dps-kakkonan')
 call dein#add('udalov/kotlin-vim', {'on_ft': ['kotlin']})
 call dein#add('hallzy/lightline-iceberg')
+call dein#add('lambdalisue/fern.vim')
 
 call dein#end()
 call dein#save_state()
@@ -151,6 +154,18 @@ nnoremap <silent> <Leader>ne :LspNextError<CR>
 nnoremap <silent> <Leader>pe :LspPreviousError<CR>
 nnoremap <silent> <Leader>td :LspTypeDefinition<CR>
 
+if executable('sourcekit-lsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'sourcekit-lsp',
+        \ 'cmd': {server_info->['sourcekit-lsp']},
+        \ 'whitelist': ['swift'],
+        \ })
+endif
+
+augroup filetype
+  au! BufRead,BufNewFile *.swift set ft=swift
+augroup END
+
 let g:lsp_log_verbose = 0
 
 "let g:airline_powerline_fonts = 1
@@ -176,77 +191,77 @@ let g:quickrun_config = {
         \     },
         \  }
 
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-        \ defx#do_action('drop')
-  nnoremap <silent><buffer><expr> c
-        \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> p
-        \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-        \ defx#do_action('drop')
-  nnoremap <silent><buffer><expr> v
-        \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> t
-        \ defx#do_action('open_tree', 'toggle')
-  nnoremap <silent><buffer><expr> P
-        \ defx#do_action('preview')
-  nnoremap <silent><buffer><expr> ND
-        \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> NF
-        \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> C
-        \ defx#do_action('toggle_columns',
-        \                'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-        \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-        \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-        \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-        \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-        \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-        \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-        \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-        \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h
-        \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-        \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q
-        \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-        \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-        \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-        \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-        \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-        \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-        \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-        \ defx#do_action('change_vim_cwd')
-endfunction
-noremap <silent> <C-n> :Defx<CR>
-
-call defx#custom#option('_', {
-      \ 'winwidth': 40,
-      \ 'split': 'vertical',
-      \ 'direction': 'topleft',
-      \ 'show_ignored_files': 0,
-      \ 'toggle': 1,
-      \ 'columns': 'indent:icons:filename:mark',
-      \ })
+""autocmd FileType defx call s:defx_my_settings()
+""function! s:defx_my_settings() abort
+""  " Define mappings
+""  nnoremap <silent><buffer><expr> <CR>
+""        \ defx#do_action('drop')
+""  nnoremap <silent><buffer><expr> c
+""        \ defx#do_action('copy')
+""  nnoremap <silent><buffer><expr> p
+""        \ defx#do_action('paste')
+""  nnoremap <silent><buffer><expr> l
+""        \ defx#do_action('drop')
+""  nnoremap <silent><buffer><expr> v
+""        \ defx#do_action('open', 'vsplit')
+""  nnoremap <silent><buffer><expr> t
+""        \ defx#do_action('open_tree', 'toggle')
+""  nnoremap <silent><buffer><expr> P
+""        \ defx#do_action('preview')
+""  nnoremap <silent><buffer><expr> ND
+""        \ defx#do_action('new_directory')
+""  nnoremap <silent><buffer><expr> NF
+""        \ defx#do_action('new_file')
+""  nnoremap <silent><buffer><expr> C
+""        \ defx#do_action('toggle_columns',
+""        \                'mark:indent:icon:filename:type:size:time')
+""  nnoremap <silent><buffer><expr> S
+""        \ defx#do_action('toggle_sort', 'time')
+""  nnoremap <silent><buffer><expr> d
+""        \ defx#do_action('remove')
+""  nnoremap <silent><buffer><expr> r
+""        \ defx#do_action('rename')
+""  nnoremap <silent><buffer><expr> !
+""        \ defx#do_action('execute_command')
+""  nnoremap <silent><buffer><expr> x
+""        \ defx#do_action('execute_system')
+""  nnoremap <silent><buffer><expr> yy
+""        \ defx#do_action('yank_path')
+""  nnoremap <silent><buffer><expr> .
+""        \ defx#do_action('toggle_ignored_files')
+""  nnoremap <silent><buffer><expr> ;
+""        \ defx#do_action('repeat')
+""  nnoremap <silent><buffer><expr> h
+""        \ defx#do_action('cd', ['..'])
+""  nnoremap <silent><buffer><expr> ~
+""        \ defx#do_action('cd')
+""  nnoremap <silent><buffer><expr> q
+""        \ defx#do_action('quit')
+""  nnoremap <silent><buffer><expr> <Space>
+""        \ defx#do_action('toggle_select') . 'j'
+""  nnoremap <silent><buffer><expr> *
+""        \ defx#do_action('toggle_select_all')
+""  nnoremap <silent><buffer><expr> j
+""        \ line('.') == line('$') ? 'gg' : 'j'
+""  nnoremap <silent><buffer><expr> k
+""        \ line('.') == 1 ? 'G' : 'k'
+""  nnoremap <silent><buffer><expr> <C-l>
+""        \ defx#do_action('redraw')
+""  nnoremap <silent><buffer><expr> <C-g>
+""        \ defx#do_action('print')
+""  nnoremap <silent><buffer><expr> cd
+""        \ defx#do_action('change_vim_cwd')
+""endfunction
+""noremap <silent> <C-n> :Defx<CR>
+""
+""call defx#custom#option('_', {
+""      \ 'winwidth': 40,
+""      \ 'split': 'vertical',
+""      \ 'direction': 'topleft',
+""      \ 'show_ignored_files': 0,
+""      \ 'toggle': 1,
+""      \ 'columns': 'indent:icons:filename:mark',
+""      \ })
 
 set completeopt-=preview
 
@@ -360,7 +375,6 @@ call ddu#custom#patch_global('sourceParams', {
       \ 'file': {'path': expand("%")},
       \ })
 
-
 autocmd FileType ddu-ff call s:ddu_my_settings()
 function! s:ddu_my_settings() abort
   nnoremap <buffer><silent> <CR>
@@ -380,6 +394,8 @@ function! s:ddu_filter_my_settings() abort
   nnoremap <buffer><silent> <CR>
         \ <Cmd>close<CR>
 endfunction
+
+nnoremap <silent> <Leader>dl :Ddu line<CR>
 
 let g:lightline = {
         \ 'colorscheme': 'iceberg',
@@ -468,3 +484,8 @@ endfunction
 
 let g:lightline.tabline_separator = g:lightline.separator
 let g:lightline.tabline_subseparator = g:lightline.subseparator
+
+
+let g:fern#default_hidden=1
+nnoremap <silent><C-n> :Fern %:h -drawer -toggle<CR>
+nmap <leader>c <Plug>(fern-action-cd)
